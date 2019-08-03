@@ -6,10 +6,16 @@ p,ul,h3,h2{
     margin:0;
     padding: 0;
 }
+ul{
+    list-style: none;
+}
 a{
     text-decoration:none;
+    color:#333;
 }
-
+a:hover{
+    color:#f00;
+}
 .container{
     width:1200px;
     margin:0 auto;

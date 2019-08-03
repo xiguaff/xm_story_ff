@@ -4,11 +4,13 @@ import Router from 'vue-router'
 
 //引入主页组件
 import Index from './views/Index.vue'
+import StoryList from './views/StoryList.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {path:'/',component:Index},
+    {path:'/list',component:StoryList},
   ]
 })

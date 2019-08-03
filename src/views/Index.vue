@@ -1,33 +1,6 @@
 <template>
     <div>
-    <div class="top_nav">
-        <div class="container">
-            <div class="top_info">
-                <ul>
-                    <li><a href="javascript:;" @click="login">登录</a></li>
-                    <li><a href="">注册</a></li>
-                    <li>
-                        <a href="">我的书架
-                            <span class="poin"></span>
-                        </a>
-                    </li>
-                    <li><a href="">联系客服</a></li>
-                </ul>
-            </div>
-            <ul>
-                <li>Android版</li>
-                <li>IOS版</li>
-                <li><a href="">首页</a></li>
-                <li><a href="">古代言情</a></li>
-                <li><a href="">现代言情</a></li>
-                <li><a href="">玄幻仙侠</a></li>
-                <li><a href="">浪漫青春</a></li>
-                <li><a href="">悬疑</a></li>
-                <li><a href="">改编频道</a></li>
-                <li><a href="">男生频道</a></li>
-            </ul>
-        </div>
-    </div>
+    <my-nav :login="login"></my-nav>
     <div class="header">
         <div class="container">
             <div class="header-top">
@@ -935,71 +908,8 @@
             <img src="image/index/bottom_img.jpg" alt="">
         </div>
     </div>
-    <div class="footer">
-        <div class="footer_content">
-            <div>
-            <span>阅文集团旗下网站：</span>
-            <ul class="footer_list">
-                <li><a href="javascript:;" target="_blank">起点中文网</a></li>
-                <li><a href="javascript:;" target="_blank">起点女生网</a></li>
-                <li><a href="javascript:;" target="_blank">创世中文网</a></li>
-                <li><a href="javascript:;" target="_blank">云起书院</a></li>
-                <li><a href="javascript:;" target="_blank">红袖添香</a></li>
-                <li><a href="javascript:;" target="_blank">小说阅读网</a></li>
-                <li><a href="javascript:;" target="_blank">言情小说吧</a></li>
-                <li><a href="javascript:;" target="_blank">潇湘书院</a></li>
-                <li><a href="javascript:;" target="_blank">天方听书网</a></li>
-                <li><a href="javascript:;" target="_blank">懒人听书</a></li>
-                <li><a href="javascript:;" target="_blank">阅文读书</a></li>
-                <li><a href="javascript:;" target="_blank">QQ阅读</a></li>
-                <li><a href="javascript:;" target="_blank">起点读书</a></li>
-                <li><a href="javascript:;" target="_blank">作家助手</a></li>
-                <li><a href="javascript:;" target="_blank">起点国际版</a></li>
-            </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>友情链接：</li>
-                    <li>265导航</li>
-                    <li>5566导航</li>
-                    <li>123网址大全</li>
-                    <li>九酷音乐</li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>关于本站</li>
-                    <li>联系我们</li>
-                    <li>会员帮助</li>
-                    <li>作者帮助</li>
-                </ul>
-            </div>
-            <p>版权所有：苏州经纬网络信息科技有限公司。（101）</p>
-            <p>网站备案/许可证号：苏ICP备16023960号-1  苏公网安备32059002002332号</p>
-            <div>
-                <img src="image/index/footer_img.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="userLogin" id="login_bg" :class="{isBlock:log==1}">
-    </div>
-    <div class="loginInput" id="login_input" :class="{isBlock:log==1}">
-        <span @click="spanHid">Ⅹ</span>
-        <div class="input_header">
-            <h2>账号登录</h2>
-            <table></table>
-            <div class="int_list">
-                <span>请输入用户名和密码</span>
-                <input type="text" placeholder="手机号/邮箱/用户名">
-                <input type="password" placeholder="密码">
-                <input type="text" placeholder="验证码" id="int3">
-                <span id="span2">换一换</span>
-                <span><img src="image/yan1.png" alt="" id="img1"></span>
-                <button id="btn">登录</button>
-                <p><a href="javascript:;">免费注册></a></p>
-            </div>
-        </div>
-      </div>
+    <my-footer></my-footer>
+    <login :spanHid="spanHid" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val"></login>   <!--父组件接收子组件传递的值-->
     </div>
 </template>
 <script>
@@ -1007,12 +917,17 @@ import { setInterval, clearInterval } from 'timers';
 export default {
     data(){
         return {
-            idx:0,  //定义变量保存元素初始样式
-            dh:0,      //定义变量保存元素初始样式
+            idx:0,       //定义变量保存元素初始样式
+            dh:0,        //定义变量保存元素初始样式
             bott:0,      //定义变量保存元素初始样式
             marleft:0,   //定义变量保存元素的marginLeft值
-            timer:"",   //保存定时器函数，用于释放
-            log:null,  //登录框隐藏切换
+            timer:"",    //保存定时器函数，用于释放
+            log:null,    //登录框隐藏切换
+            // uname:"",    //双向绑定姓名框的值
+            // upwd:"",     //双向绑定密码框的值
+            authCode:"", //双向绑定验证框的值
+            arr:[1,18,11,33,34,1],    //验证码的答案
+            imgUrl:1,       //记录验证码图片切换的张数
         }
     },
     created(){
@@ -1021,11 +936,24 @@ export default {
         },15);
     },
     methods:{
-        login(){
-            this.log=1;     //点击按钮显示登录框
+        toLogin(){          //验证验证码是否输入正确
+            if(this.authCode==this.arr[this.imgUrl-1]){
+                console.log("验证成功");
+            }else{
+                console.log("验证失败");
+            };
         },
-        spanHid(){
-            this.log=null;   //点击按钮隐藏登录框
+        changeImg(){        //变换验证码图片
+            this.imgUrl++;
+            if(this.imgUrl==7){
+                this.imgUrl=1; 
+            };
+        },
+        login(){            //点击按钮显示登录框
+            this.log=1;     
+        },
+        spanHid(){          //点击按钮隐藏登录框
+            this.log=null;   
         },
         timeMove(){         //绑定鼠标事件，进入停止定时器，离开启动定时器
             clearInterval(this.timer);
@@ -1033,30 +961,31 @@ export default {
         timeLea(){
             this.timer=setInterval(()=>{
                 this.marginLeft();
-        },15);  
+            },15);  
         },
-        marginLeft(){      //改变元素的marginLeft值
+        marginLeft(){       //改变元素的marginLeft值
             this.marleft++;
             if(this.marleft==1687){
                 this.marleft=241;
             };
         },
-        ulMouse(e){    //定义函数改变元素隐藏样式
+        ulMouse(e){         //定义函数改变元素隐藏样式
             if(e.target.nodeName=="LI"){
                 this.idx=e.target.dataset.idx;
             };
         },
-        divMouse(e){    //定义函数改变元素隐藏样式
+        divMouse(e){        //定义函数改变元素隐藏样式
             if(e.target.nodeName=="H3"){
                 this.dh=e.target.dataset.dh;
             }
         },
-        mouseDiv(e){    //定义函数改变元素隐藏样式
+        mouseDiv(e){        //定义函数改变元素隐藏样式
             if(e.target.nodeName=="H3"){
                 this.bott=e.target.dataset.bott;
             }
         },
     },
+    components:{}
 }
 </script>
 <style>
