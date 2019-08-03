@@ -17,14 +17,14 @@
             <ul>
                 <li>Android版</li>
                 <li>IOS版</li>
-                <li><a href="">首页</a></li>
-                <li><a href="">古代言情</a></li>
-                <li><a href="">现代言情</a></li>
-                <li><a href="">玄幻仙侠</a></li>
-                <li><a href="">浪漫青春</a></li>
-                <li><a href="">悬疑</a></li>
-                <li><a href="">改编频道</a></li>
-                <li><a href="">男生频道</a></li>
+                <li><router-link to="/">首页</router-link></li>
+                <li><router-link to="/list/1" :class="{isActive:num==1}">古代言情</router-link></li>
+                <li><router-link to="/list/2" :class="{isActive:num==2}">现代言情</router-link></li>
+                <li><router-link to="/list/3" :class="{isActive:num==3}">玄幻仙侠</router-link></li>
+                <li><router-link to="/list/4" :class="{isActive:num==4}">浪漫青春</router-link></li>
+                <li><router-link to="/list/5" :class="{isActive:num==5}">悬疑</router-link></li>
+                <li><router-link to="/list/6" >改编频道</router-link></li>
+                <li><router-link to="/list/7">男生频道</router-link></li>
             </ul>
         </div>
     </div>
@@ -39,10 +39,11 @@ export default {
     },
     props:{
         login:{tyle:Function},
+        num:{default:""},
     }
 }
 </script>
 
 <style>
-    /* @import url("../assets/css/myNav.css"); */
+    @import url("../assets/css/myNav.css");
 </style>

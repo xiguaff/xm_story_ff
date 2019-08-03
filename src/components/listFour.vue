@@ -4,7 +4,7 @@
         <div class="container">
             <div class="header-top">
                 <div>
-                    <img :src="`image/list/logo_${num}.png`" alt="">
+                    <img :src="`image/list/logo_${4}.png`" alt="">
                 </div>
                 <div class="intStyle">
                     <input type="text"><span><i></i><i></i></span>
@@ -270,7 +270,7 @@ export default {
 
         }
     },
-    props:["num"]
+    props:["num"],
 }
 </script>
 <style>

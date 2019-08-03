@@ -1,13 +1,21 @@
 <template>
     <div>
-        <my-nav :login="login"></my-nav>
-        <list-one></list-one>
+        <my-nav :login="login" :num="num"></my-nav>
+        <list-one v-if="this.num==1" :num="num"></list-one>
+        <list-two v-else-if="this.num==2" :num="num"></list-two>
+        <list-three v-else-if="this.num==3" :num="num"></list-three>
+        <list-four v-else-if="this.num==4" :num="num"></list-four>
+        <list-five v-else :num="num"></list-five>
         <my-footer></my-footer>
         <login :spanHid="spanHid" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val"></login>   <!--父组件接收子组件传递的值-->
     </div>
 </template>
 <script>
 import listOne from '../components/listOne.vue'
+import listTwo from '../components/listTwo.vue'
+import listThree from '../components/listThree.vue'
+import listFour from '../components/listFour.vue'
+import listFive from '../components/listFive.vue'
 export default {
     data(){
         return {
@@ -40,7 +48,8 @@ export default {
             this.log=null;   
         },
     },
-    components:{listOne}
+    props:["num"],
+    components:{listOne,listTwo,listThree,listFour,listFive}
 }
 </script>
 <style>

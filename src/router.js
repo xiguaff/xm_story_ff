@@ -11,6 +11,6 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {path:'/',component:Index},
-    {path:'/list',component:StoryList},
+    {path:'/list/:num',component:StoryList,props:true},
   ]
 })
