@@ -5,7 +5,7 @@
             <div class="top_info">
                 <ul>
                     <li><a href="javascript:;" @click="login">登录</a></li>
-                    <li><a href="">注册</a></li>
+                    <li><router-link to="/reg">注册</router-link></li>
                     <li>
                         <a href="">我的书架
                             <span class="poin"></span>

@@ -1,0 +1,92 @@
+body{
+    background:#f7f7f7;
+}
+.reg-cont{
+    width:1000px;
+    margin:50px auto;
+}
+.reg{
+    border:1px solid #e5e5e5;
+    background:#fff;
+    padding:35px 90px;
+}
+div.reg>div:first-child{
+    border-bottom:1px solid #dedede;
+    height:40px;
+}
+div.reg>div:first-child>h3{
+    border-bottom:1px solid #fb6b84;
+    float: left;
+    font-weight:normal;
+    padding:7px 0;
+}
+.reg-content{
+    margin-top:20px;
+}
+.reg-int>div>span:first-child{
+    display: inline-block;
+    width:80px;
+    text-align: right;
+    color:#999;
+    margin-right:10px;
+    font-size:12px;
+}
+.reg-int>div>input{
+    width:212px;height:34px;
+    outline: none;
+}
+.reg-int>div:nth-child(4)>input{
+    width:54px;
+}
+.reg-int>div:nth-child(4)>span:nth-child(3){
+    display: inline-block;
+    width:99px;height:25px;
+    vertical-align: middle;
+    margin-left:5px;
+}
+.reg-int>div:nth-child(4)>span:nth-child(3)>img{
+    width:99px;height:25px;
+}
+.reg-int>div:nth-child(4)>span:not(:first-child){
+    cursor: pointer;
+}
+.reg-int>div{
+    margin-bottom:20px;
+} 
+.reg-int>div:nth-child(5)>label>input{
+    width:13px;height:13px;
+    vertical-align:middle;
+}
+.reg-int>div:nth-child(5)>label>span{
+    font-size:12px;color:#999;  
+}
+.reg-int>div:nth-child(5)>span:nth-child(2){
+    font-size:12px;
+    margin-left:5px;
+}
+.reg-int>div:nth-child(5){
+    margin-left:85px;
+    margin-top:40px;
+}
+.reg-int>button{
+    background:#ff4400;
+    border:1px solid #ff4400;
+    color:#fff;
+    outline: none;
+    width:260px;height:39px;
+    text-align: center;
+    line-height:39px;
+    border-radius:0.25rem;
+    margin-left:85px;
+}
+.reg-int{
+    border-right:1px solid #dedede;
+    width:560px;
+}
+
+.reg-content{
+    display:flex;
+}
+.reg-right>p{
+    margin-left:30px;
+}

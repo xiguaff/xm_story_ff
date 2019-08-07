@@ -15,7 +15,7 @@
                 <span @click="changeImg">换一换</span>
                 <span><img :src="`image/yan${imgUrl}.png`" alt="" id="img1"></span>
                 <button @click="toLogin">登录</button>
-                <p><a href="javascript:;">免费注册></a></p>
+                <p><router-link to="/reg">免费注册></router-link></p>
             </div>
         </div>
     </div>

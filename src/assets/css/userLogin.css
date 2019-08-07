@@ -1,0 +1,104 @@
+.login-bg{
+    background:url("../image/reg/login-bg.jpeg");
+    width:100%;
+    height:754px;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.cont{
+    margin-top:30px !important;
+}
+.loginContent{
+    width:460px;
+    height:460px;
+    position:fixed;
+    top:20%;left:60%;
+    background:#fff;
+    border:1px solid #eaeaea;
+}
+.login_header{
+    height:60px;
+    border-bottom:1px solid #ccc;
+}
+.login_header>h2{
+    float: left;
+    width:200px;
+    text-align: center;
+    padding:13px 0;
+    border-bottom:2px solid #fb6b84;
+    color:#fb6b84;
+    font-weight:normal;
+}
+.login_list{
+    width:300px;height:309px;
+    margin:80px 0 0 80px;;
+}
+.login_list>input{
+    height:40px;
+    width: 100%;
+    outline: none;
+    margin-bottom:15px;
+    color:#333;
+    border:1px solid #ccc;
+    padding:5px 10px;
+}
+.login_list>input::placeholder{
+    color:#ccc;
+}
+.login_list>span:first-child{
+    color:#f00;
+    margin-left:60px;
+    visibility:hidden;
+}
+.login_list>input:nth-child(2){
+    background:url(../image/index/user.png);
+    background-size:20px;
+    background-repeat: no-repeat;
+    background-position:270px center;
+}
+.login_list>input:nth-child(3){
+    background:url(../image/index/pwd.png);
+    background-size:24px;
+    background-repeat: no-repeat;
+    background-position:270px center; 
+}
+.login_list>input:nth-child(4){
+    width:50%;
+    background:url(../image/index/yan.png);
+    background-size:24px;
+    background-repeat: no-repeat;
+    background-position:120px center;
+}
+.login_list>span:nth-child(5){
+    margin-left:40px;
+    cursor:pointer;
+}
+.login_list>span:nth-child(6){
+    cursor:pointer;
+}
+.login_list>span:nth-child(5):hover{
+    color:#f00;
+}
+.login_list>button:nth-child(7){
+    width:100%;
+    height:40px;
+    background:#fb6b84;
+    border-style:none;
+    border-radius:0.25rem;
+    outline: none;
+    color:#fff;
+    margin-top:10px;
+}
+.login_list>button:nth-child(7):hover{
+    background-color: #f9889b
+}
+.login_list>p:last-child{
+    margin-top:20px;
+}
+.login_list>p:last-child>a{
+    color:#00c0ff;
+    float:right;
+}
+.login_list>p:last-child>a:hover{
+    color:#f00;
+}
