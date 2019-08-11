@@ -3,6 +3,24 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+//引入element ui 组件
+import Element from 'element-ui'
+Vue.use(Element)
+import 'element-ui/lib/theme-chalk/index.css'
+
+//引入axios组件
+import axios from 'axios'
+import qs from 'qs'
+//配置axios基础路径
+axios.defaults.baseURL="http://127.0.0.1:1994/"
+axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded;charset=UTF-8'
+//保存session的信息
+axios.defaults.withCredentials=true
+//将axios添加到vue原型对象中
+Vue.prototype.axios=axios
+Vue.prototype.qs=qs
+
+
 //引入导航栏组件
 import MyNav from './components/MyNav.vue'
 
@@ -27,5 +45,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

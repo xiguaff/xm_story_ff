@@ -3,6 +3,9 @@
     /* background-image:url("../image/list/bg_1.jpg"); */
     background-repeat: no-repeat;   
     margin-top:48px;
+    /* background-size:cover; */
+    /* width:1200px; */
+    /* margin:0 auto; */
 }
 
 .list-header::before{
@@ -12,7 +15,7 @@
 .header-top{
     display:flex;
     justify-content: space-between;
-    margin-top:50px;;
+    margin-top:50px;
 }
 div.intStyle>input{
     width:450px;

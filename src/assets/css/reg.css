@@ -90,3 +90,68 @@ div.reg>div:first-child>h3{
 .reg-right>p{
     margin-left:30px;
 }
+.int-focus{
+    color:#f00;
+    font-size:12px;
+    /* margin-left:15px; */
+    padding:0 0 0 18px;
+}
+.upwd-focus{
+    color:#f00;
+    font-size:12px;
+    float:right;
+    /* display: inline-block; */
+    width:180px;height:34px;
+    margin-right:63px;
+    
+}
+.dis-none{
+    display: none;
+}
+.int-success{
+    background-image:url("../image/reg/ok.png");
+    background-repeat: no-repeat;
+    background-position:left center;
+}
+.int-err{
+    background-image:url("../image/reg/err.png");
+    background-repeat: no-repeat;
+    background-position:left center;
+}
+.is-success{
+    background-image:url("../image/reg/ok.png");
+    background-repeat: no-repeat;
+    background-position:left center;
+}
+.is-err{
+    background-image:url("../image/reg/err.png");
+    background-repeat: no-repeat;
+    background-position:left center;
+}
+.span-sp>span:not(:last-child){
+    display:inline-block;
+    width:52px;height:22px;
+    border:1px solid #999;
+    text-align: center;
+    line-height:22px;
+    font-size:14px;
+    margin-right:5px;
+}
+.span-sp>span:last-child{
+    font-size:12px;
+    color:#f00;
+    display:block;
+}
+.isUpwd{
+    background:#4ad70c;
+    color:#fff;
+}
+.span-sp{
+    float: right;
+    margin-right:15px;
+    width:230px;
+}
+.eyeSpan{
+    position: absolute;
+    top:8px;left:280px;
+}

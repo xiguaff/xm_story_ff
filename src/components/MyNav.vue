@@ -4,7 +4,8 @@
         <div class="container">
             <div class="top_info">
                 <ul>
-                    <li><a href="javascript:;" @click="login">登录</a></li>
+                    <li style="display:none" :class="{liStyle:loginName==''}"><a href="javascript:;" @click="login">登录</a></li>
+                    <li style="display:none" :class="{liStyle:loginName!=''}">欢迎：<a href="javascript:;">{{loginName}}</a><a href="javascript:;" @click="outLogin">退出登录</a></li>
                     <li><router-link to="/reg">注册</router-link></li>
                     <li>
                         <a href="">我的书架
@@ -37,9 +38,14 @@ export default {
 
         }
     },
+    // created(){
+    //     this.loginName=this.$store.state.uname;
+    // },
     props:{
-        login:{tyle:Function},
+        login:{type:Function},
         num:{default:""},
+        loginName:{default:""},
+        outLogin:{type:Function},
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-nav :login="login" :num="num"></my-nav>
+        <my-nav :login="login" :num="num" :loginName="loginName" :outLogin="outLogin"></my-nav>
         <!-- <list-one v-if="this.num==1" :num="num"></list-one>
         <list-two v-else-if="this.num==2" :num="num"></list-two>
         <list-three v-else-if="this.num==3" :num="num"></list-three>
@@ -268,7 +268,7 @@
         </div>
     </div>
         <my-footer></my-footer>
-        <login :spanHid="spanHid" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val"></login>   <!--父组件接收子组件传递的值-->
+        <login :spanHid="spanHid" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val" @sendName="(val)=>this.uname=val" @sendPwd="(val)=>this.upwd=val"></login>   <!--父组件接收子组件传递的值-->
     </div>
 </template>
 <script>
@@ -281,20 +281,72 @@ export default {
     data(){
         return {
             log:null,    //登录框隐藏切换
-            // uname:"",    //双向绑定姓名框的值
-            // upwd:"",     //双向绑定密码框的值
+            uname:"",    //双向绑定姓名框的值
+            upwd:"",     //双向绑定密码框的值
             authCode:"", //双向绑定验证框的值
             arr:[1,18,11,33,34,1],    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
+            loginName:"",
+            authTrue:false,     //保存验证码输入框的状态
         }
     },
+    created(){
+        this.getName();
+    },
     methods:{
+        outLogin(){
+            this.axios.get("outlogin").then(result=>{
+                if(result.data.code==1){
+                    location.reload();
+                    this.$message("退出成功！");
+                };
+            });
+        },
         toLogin(){          //验证验证码是否输入正确
-            if(this.authCode==this.arr[this.imgUrl-1]){
-                console.log("验证成功");
-            }else{
-                console.log("验证失败");
+            if(this.uname==""&&this.upwd==""){
+                this.loginMsg="请输入用户名和密码";
+                return;
+            }else if(this.uname==""){
+                this.loginMsg="请输入用户名";
+                return;
+            }else if(this.upwd==""){
+                this.loginMsg="请输入密码";
+                return;
+            }else if(this.authCode==""){
+                this.loginMsg="请输入验证码";
+                return;
             };
+            if(!this.authTrue){
+                this.loginMsg="验证码输入错误";
+            }else{
+                this.axios.get("login",{
+                    params:{
+                        uname:this.uname,
+                        upwd:this.upwd,
+                    }
+                }).then(res=>{
+                    if(res.data.code==1){
+                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{
+                            this.log=null;
+                            location.reload();
+                        }).catch(err=>{
+                            location.reload();
+                             this.log=null;
+                        });
+                    }else{
+                        this.$message.error("用户名或密码错误");
+                    }
+                });
+            }
+        },
+        getName(){
+            this.axios.get("getname").then(result=>{
+                if(result.data.code==1){
+                    this.loginName=result.data.data;
+                }else{
+                    this.loginName="";
+                }
+            })
         },
         changeImg(){        //变换验证码图片
             this.imgUrl++;
@@ -307,6 +359,15 @@ export default {
         },
         spanHid(){          //点击按钮隐藏登录框
             this.log=null;   
+        },
+    },
+    watch:{
+        authCode(){
+            if(this.arr[this.imgUrl-1]==this.authCode){
+                this.authTrue=true;
+            }else{
+                this.authTrue=false;
+            };
         },
     },
     props:["num"],      //定义自定义属性，用用于接受其他页面传递的值，并用于页面绑定

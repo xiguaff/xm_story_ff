@@ -1,6 +1,6 @@
 <template>
     <div>
-    <my-nav :login="login"></my-nav>
+    <my-nav :login="login" :loginName="loginName" :outLogin="outLogin"></my-nav>
     <div class="header">
         <div class="container">
             <div class="header-top">
@@ -184,7 +184,7 @@
             </div>
         </div>
         <div class="col-8">
-
+            {{this.$store.state.uname}}
         </div>
         <div class="col-2">
             <div class="small_car">
@@ -909,11 +909,12 @@
         </div>
     </div>
     <my-footer></my-footer>
-    <login :spanHid="spanHid" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val"></login>   <!--父组件接收子组件传递的值-->
+    <login :spanHid="spanHid" :loginMsg="loginMsg" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val" @sendName="(val)=>this.uname=val" @sendPwd="(val)=>this.upwd=val"></login>   <!--父组件接收子组件传递的值-->
     </div>
 </template>
 <script>
 import { setInterval, clearInterval } from 'timers';
+import Event from '../Even.js';
 export default {
     data(){
         return {
@@ -923,25 +924,90 @@ export default {
             marleft:0,   //定义变量保存元素的marginLeft值
             timer:"",    //保存定时器函数，用于释放
             log:null,    //登录框隐藏切换
-            // uname:"",    //双向绑定姓名框的值
-            // upwd:"",     //双向绑定密码框的值
+            uname:"",    //双向绑定姓名框的值
+            upwd:"",     //双向绑定密码框的值
             authCode:"", //双向绑定验证框的值
             arr:[1,18,11,33,34,1],    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
+            authTrue:false,     //保存验证码输入框的状态
+            loginMsg:"",
+            loginName:"",
         }
+    },
+    watch:{
+        authCode(){
+            if(this.arr[this.imgUrl-1]==this.authCode){
+                this.authTrue=true;
+            }else{
+                this.authTrue=false;
+            };
+        },
     },
     created(){
         this.timer=setInterval(()=>{   //页面加载完成时启用定时器，调用函数，改变元素的marginLeft
             this.marginLeft();
         },15);
+        this.getName();
+        // this.sendValue();
     },
     methods:{
-        toLogin(){          //验证验证码是否输入正确
-            if(this.authCode==this.arr[this.imgUrl-1]){
-                console.log("验证成功");
-            }else{
-                console.log("验证失败");
+        outLogin(){
+            this.axios.get("outlogin").then(result=>{
+                if(result.data.code==1){
+                    location.reload();
+                    this.$message("退出成功！");
+                };
+            });
+        },
+        getName(){          //页面刷新获取用户名，如果已登录则显示在导航栏
+            this.axios.get("getname").then(result=>{
+                if(result.data.code==1){
+                    this.loginName=result.data.data;
+                }else{
+                    this.loginName="";
+                }
+            })
+        },
+        // sendValue(){
+        //    Event.$emit("send",this.imgUrl); 
+        // },
+        toLogin(){          //用户登录时间
+            if(this.uname==""&&this.upwd==""){
+                this.loginMsg="请输入用户名和密码";
+                return;
+            }else if(this.uname==""){
+                this.loginMsg="请输入用户名";
+                return;
+            }else if(this.upwd==""){
+                this.loginMsg="请输入密码";
+                return;
+            }else if(this.authCode==""){
+                this.loginMsg="请输入验证码";
+                return;
             };
+            if(!this.authTrue){
+                this.loginMsg="验证码输入错误";
+            }else{
+                this.axios.get("login",{
+                    params:{
+                        uname:this.uname,
+                        upwd:this.upwd,
+                    }
+                }).then(res=>{
+                    console.log(res.data.data)
+                    if(res.data.code==1){
+                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{
+                            this.log=null;
+                            location.reload();
+                        }).catch(err=>{
+                             this.log=null;
+                             location.reload();
+                        });
+                    }else{
+                        this.$message.error("用户名或密码错误");
+                    }
+                });
+            }
         },
         changeImg(){        //变换验证码图片
             this.imgUrl++;

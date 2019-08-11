@@ -8,9 +8,9 @@
             <h2>账号登录</h2>
             <table></table>
             <div class="int_list">
-                <span>请输入用户名和密码</span>
-                <input type="text" placeholder="手机号/邮箱/用户名" >
-                <input type="password" placeholder="密码" >
+                <span>{{loginMsg}}</span>
+                <input type="text" placeholder="手机号/邮箱/用户名" v-model="uname">
+                <input type="password" placeholder="密码" v-model="upwd">
                 <input type="text" placeholder="验证码" v-model="authCode">
                 <span @click="changeImg">换一换</span>
                 <span><img :src="`image/yan${imgUrl}.png`" alt="" id="img1"></span>
@@ -26,14 +26,22 @@ export default {
     data(){
         return {
             authCode:"",
+            uname:"",
+            upwd:"",
         }
     },
     watch:{
         authCode(val){   //将验证框数据传递给父组件
             this.$emit("sendValue",val);
         },
+        uname(){
+            this.$emit("sendName",this.uname);
+        },
+        upwd(){
+            this.$emit("sendPwd",this.upwd);
+        }
     },
-    props:["spanHid","log","imgUrl","changeImg","toLogin"]
+    props:["loginMsg","spanHid","log","imgUrl","changeImg","toLogin"]
     // props:{
     //     spanHid:{type:Function},
     //     log:{default:""},
