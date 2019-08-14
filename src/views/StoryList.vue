@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-nav :login="login" :num="num" :loginName="loginName" :outLogin="outLogin"></my-nav>
+        <my-nav :login="login" :num="num" :outLogin="outLogin"></my-nav>
         <!-- <list-one v-if="this.num==1" :num="num"></list-one>
         <list-two v-else-if="this.num==2" :num="num"></list-two>
         <list-three v-else-if="this.num==3" :num="num"></list-three>
@@ -21,23 +21,23 @@
                 </div>
             </div>
             <div class="header-bottom">
-                <a href="javascript:;">古言完本小说</a>
-                <a href="javascript:;">古言免费小说</a>
-                <a href="javascript:;">古言包月小说</a>
-                <a href="javascript:;">古言全部小说</a>
+                <a href="javascript:;">{{Sfamily}}完本小说</a>
+                <a href="javascript:;">{{Sfamily}}免费小说</a>
+                <a href="javascript:;">{{Sfamily}}包月小说</a>
+                <a href="javascript:;">{{Sfamily}}全部小说</a>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="list-top">
             <div class="list-top-left">
-                <div class="list-top-content">
+                <div class="list-top-content" v-for="(p,i) of oneList" :key="i">
                     <div>
-                        <img src="image/list/list_1.jpg" alt="">
+                        <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
                     </div>
                     <div>
-                        <p>极纵无双之正室指南</p>
-                        <p>侧耳听风 / 著</p>
+                        <p v-text="p.bname"></p>
+                        <p><span v-text="p.author"></span>/ 著</p>
                         <p>
                             （双宠—双强—双纯）宇文玠所想的妻子是这样的：品性端良，德才兼备；秉性柔嘉，持恭淑慎。 
                             而白牡嵘完美的避过了以上每一条，对着镜子，这外形便不是居家妇女，白扯！ 穿越至此，便是新婚之夜，
@@ -45,7 +45,7 @@
                             他还真不是战五渣，就是个披着完美人皮的狼！宇文玠—杀人诛心的邪魔。白牡嵘—上兵伐谋的恶鬼。 
                             二人为敌，天下大乱；二人为伍，天下更乱听风坑品有保证，欢迎亲们跳坑
                         </p>
-                        <a href="javascript:;">书籍详情</a>
+                        <router-link :to="`/detail/${p.sid}`">书籍详情</router-link>
                     </div>
                 </div>
             </div>
@@ -140,13 +140,13 @@
             <h3>频道新书</h3>
         </div>
         <div class="list-middle">
-        <div class="list-middle-content">
+        <div class="list-middle-content" v-for="(p,i) of twoList" :key="i">
             <div>
-                <img src="image/list/list_2.jpg" alt="">
+                <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
             </div>
             <div>
-                <p><a href="javascript:;">我在奈何桥底算命</a></p>
-                <p style="color:#888">陶四木 / 著</p>
+                <p><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></p>
+                <p style="color:#888"><span v-text="p.author"></span>/ 著</p>
                 <p>简介:更新时间，每日早上八点。算命师版:桥底算命，童叟无欺。
                         作为一个算命的，能说会道是本事，答疑解惑是常事。木欧在奈何桥底下算命千年有余，侃天侃地侃社会，
                         上到阎罗王，下到投胎鬼，几乎都光顾过她的摊子，哪个不说她信誉好？ 直到某天摊子面前来了一个如花似玉的小仙君……
@@ -225,13 +225,13 @@
                 <h3>人气连载</h3>
         </div>
         <div class="list-middle">
-                <div class="list-middle-content">
+                <div class="list-middle-content" v-for="(p,i) of threeList" :key="i">
                     <div>
-                        <img src="image/list/list_2.jpg" alt="">
+                        <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
                     </div>
                     <div>
-                        <p><a href="javascript:;">我在奈何桥底算命</a></p>
-                        <p style="color:#888">陶四木 / 著</p>
+                        <p><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></p>
+                        <p style="color:#888"><span v-text="p.author"></span> / 著</p>
                         <p>简介:更新时间，每日早上八点。算命师版:桥底算命，童叟无欺。
                             作为一个算命的，能说会道是本事，答疑解惑是常事。木欧在奈何桥底下算命千年有余，侃天侃地侃社会，
                             上到阎罗王，下到投胎鬼，几乎都光顾过她的摊子，哪个不说她信誉好？ 直到某天摊子面前来了一个如花似玉的小仙君……
@@ -247,11 +247,11 @@
             <img src="image/list/gg.jpg" alt="">
         </div>
         <div class="list-bottom">
-            <div class="list-bottom-content">
-                <div><img src="image/list/list_3.jpg" alt=""></div>
+            <div class="list-bottom-content" v-for="(p,i) of fourList" :key="i">
+                <div><img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt=""></div>
                 <div>
-                    <p><a href="">盛宠农门娇妻</a></p>
-                    <p style="color:#888;">风柒染 / 著</p>
+                    <p><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></p>
+                    <p style="color:#888;"><span v-text="p.author"></span> / 著</p>
                     <p>
                         【美食】+【系统】+【异能】+【宠文一对一】+【家长里短】+【虐极品】地球末世突然降临，
                         唐妖儿不曾想，人心难测！被自己最好的蜜友所害，一腔悲愤，绝望地落入丧尸口中。一朝重生，
@@ -262,7 +262,7 @@
                         不要三天两头“鞭策”她去勾搭男人啊！黎幺儿不仅要养家人，还要养某只失忆又失明的“兔儿”。幸好有一身杀过丧尸的勇气和见识，
                         调教兔儿不成问题，抵抗极品亲戚小意思，蹭蹭蹭升级系统，斗斗情敌，一切不在话下。
                     </p>
-                    <a href="javascript:;">书籍详情</a>
+                    <router-link :to="`/detail/${p.sid}`">书籍详情</router-link>
                 </div>
             </div>
         </div>
@@ -286,19 +286,50 @@ export default {
             authCode:"", //双向绑定验证框的值
             arr:[1,18,11,33,34,1],    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
-            loginName:"",
             authTrue:false,     //保存验证码输入框的状态
+            oneList:[],
+            twoList:[],
+            threeList:[],
+            fourList:[],
+            Sfamily:"",
         }
     },
     created(){
-        this.getName();
+        // this.getName();
+        this.getList();
+            if(this.num==1){
+                this.Sfamily="玄幻";
+            }else if(this.num==2){
+                this.Sfamily="现言";
+            }else if(this.num==3){
+                this.Sfamily="悬疑";
+            }else if(this.num==4){
+                this.Sfamily="古言";
+            }else{
+                this.Sfamily="青春";
+            };
     },
     methods:{
+        getList(){
+            this.axios.get("list",{
+                params:{
+                    fid:this.num
+                }
+            }).then(result=>{
+                var data=result.data.data
+                            //    console.log(data);
+                this.oneList=data.splice(0,4);
+                this.twoList=data.splice(0,9);
+                this.threeList=data.splice(0,9);
+                this.fourList=data.splice(0,6);
+            })
+        },
         outLogin(){
             this.axios.get("outlogin").then(result=>{
                 if(result.data.code==1){
                     location.reload();
                     this.$message("退出成功！");
+                    sessionStorage.removeItem("uname")
                 };
             });
         },
@@ -326,6 +357,8 @@ export default {
                     }
                 }).then(res=>{
                     if(res.data.code==1){
+                    var uname=(res.data.data).slice(-4);
+                    sessionStorage.setItem("uname","xxmy"+uname)
                         this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{
                             this.log=null;
                             location.reload();
@@ -339,15 +372,15 @@ export default {
                 });
             }
         },
-        getName(){
-            this.axios.get("getname").then(result=>{
-                if(result.data.code==1){
-                    this.loginName=result.data.data;
-                }else{
-                    this.loginName="";
-                }
-            })
-        },
+        // getName(){
+        //     this.axios.get("getname").then(result=>{
+        //         if(result.data.code==1){
+        //             this.loginName=result.data.data;
+        //         }else{
+        //             this.loginName="";
+        //         }
+        //     })
+        // },
         changeImg(){        //变换验证码图片
             this.imgUrl++;
             if(this.imgUrl==7){
@@ -369,6 +402,20 @@ export default {
                 this.authTrue=false;
             };
         },
+        num(){
+            this.getList();
+            if(this.num==1){
+                this.Sfamily="玄幻";
+            }else if(this.num==2){
+                this.Sfamily="现言";
+            }else if(this.num==3){
+                this.Sfamily="悬疑";
+            }else if(this.num==4){
+                this.Sfamily="古言";
+            }else{
+                this.Sfamily="青春";
+            };
+        }
     },
     props:["num"],      //定义自定义属性，用用于接受其他页面传递的值，并用于页面绑定
     // components:{listOne,listTwo,listThree,listFour,listFive}

@@ -1,6 +1,6 @@
 <template>
     <div>
-    <my-nav :login="login"></my-nav>
+    <my-nav :login="login" :outLogin="outLogin"></my-nav>
     <div class="container">
         <div class="view-top">
             <div>
@@ -19,8 +19,12 @@
             <span><a href="javascript:;">现言</a>></span><span>名门暖婚之权爷追妻攻略</span>
         </div>
         <div class="detalis-top">
-            <div>
+            <div @mouseover="fdjDiv" @mouseout="fdjDiv" @mousemove="fdjMove" class="divStyle" ref="divOne">
                 <img src="image/index/bot4-list.jpg" alt="">
+            </div>
+            <div class="fdj-sp" :class="{fdjStyle:isNone}" :style="spanStyle" ref="divTwo"></div>
+            <div class="fdj-top" :class="{fdjStyle:isNone}">
+                <img src="image/index/bot4-list.jpg" alt="" :style="imgStyle">
             </div>
             <div class="right-detail">
                 <div class="title">
@@ -174,9 +178,61 @@ export default {
             arr:[1,18,11,33,34,1],    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
             log:null,    //登录框隐藏切换
+            // fdjStyle:{
+            //     display:"none",
+            // },
+            spanStyle:{
+                top:0,
+                left:0,
+            },
+            imgStyle:{
+                top:0,
+                left:0,
+            },
+            isNone:false,
+            widthOne:0,     //保存触发鼠标移动事件元素的宽高
+            heightOne:0,
+            divWidth:0,     //保存小滑块元素的宽高
+            divHeight:0,
         }
     },
+    watch:{
+
+    },
     methods:{
+        fdjMove(e){
+            var top=e.offsetY-71;
+            var left=e.offsetX-52;
+            if(top<0){
+                top=0;
+            }else if(top>285-142){
+                top=285-142;
+            }
+            if(left<0){
+                left=0;
+            }else if(left>210-105){
+                left=210-105;
+            }
+            this.spanStyle={
+                top:top+"px",
+                left:left+"px",
+            };
+            this.imgStyle={
+                top:-2*top+"px",
+                left:-2*left+"px",
+            }
+        },
+        fdjDiv(){
+            this.isNone=!this.isNone;
+        },
+        outLogin(){
+            this.axios.get("outlogin").then(result=>{
+                if(result.data.code==1){
+                    location.reload();
+                    this.$message("退出成功！");
+                };
+            });
+        },
         toLogin(){          //验证验证码是否输入正确
             if(this.authCode==this.arr[this.imgUrl-1]){
                 console.log("验证成功");
@@ -197,7 +253,12 @@ export default {
             this.log=null;   
         },
     },
-    props:["lid"],
+    mounted(){
+
+        var widthOne=this.$refs.divOne.offsetWidth;
+        var heightOne=this.$refs.divOne.offsetHeight;
+    },
+    props:["lid"], 
 }
 </script>
 <style>

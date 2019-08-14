@@ -16,6 +16,9 @@ import reg from './views/reg.vue'
 
 //引入用户登录页面组件
 import Login from './views/UserLogin.vue'
+
+//引入个人中心组建
+import userCenter from './views/BookShelf.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -25,5 +28,6 @@ export default new Router({
     {path:'/detail/:lid',component:Details,props:true},     //为图书详情页配置路径
     {path:'/reg',component:reg},    //为用户注册页面配置路径
     {path:'/login',component:Login},    //为用户登录页面配置路径
+    {path:'/center',component:userCenter}     //为个人中心配置路由
   ]
 })

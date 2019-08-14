@@ -32,7 +32,7 @@ import { setInterval } from 'timers';
 export default {
     data(){
         return {    
-            imgNum:1,           //记录验证码图片切换的张数
+            imgNum:Math.ceil(Math.random()*6),           //记录验证码图片切换的张数
             arr:[1,18,11,33,34,1],    //验证码的答案
             authCode:"",        //双向绑定验证框的值
             uname:"",
@@ -75,6 +75,8 @@ export default {
                     }
                 }).then(res=>{
                     if(res.data.code==1){
+                        var uname=(res.data.data).slice(-4);
+                         sessionStorage.setItem("uname","xxmy"+uname)
                         this.$alert("登录成功,点击确定跳转到首页","提示",{confirmButtonText:'确定'}).then(active=>{
                             this.$router.push("/");
                         }).catch(err=>{

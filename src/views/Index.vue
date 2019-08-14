@@ -1,6 +1,6 @@
 <template>
     <div>
-    <my-nav :login="login" :loginName="loginName" :outLogin="outLogin"></my-nav>
+    <my-nav :login="login" :outLogin="outLogin"></my-nav>
     <div class="header">
         <div class="container">
             <div class="header-top">
@@ -184,7 +184,7 @@
             </div>
         </div>
         <div class="col-8">
-            {{this.$store.state.uname}}
+
         </div>
         <div class="col-2">
             <div class="small_car">
@@ -197,7 +197,7 @@
             <h3>热门推荐</h3>
         </div>
         <div class="hot_content">
-            <div class="hot_content_1" @mousemove="timeMove" @mouseleave="timeLea">
+            <div class="hot_content_1" @mouseover="timeMove" @mouseleave="timeLea">
                 <div id="div-imgs" :style="{'margin-left':`-${marleft}px`}">
                     <div><a href="javascript:;"><img src="image/index/hot_tui1.jpg" alt="">
                         <p>侯门嫡女之一品夫人</p>
@@ -928,10 +928,9 @@ export default {
             upwd:"",     //双向绑定密码框的值
             authCode:"", //双向绑定验证框的值
             arr:[1,18,11,33,34,1],    //验证码的答案
-            imgUrl:1,       //记录验证码图片切换的张数
+            imgUrl:Math.ceil(Math.random()*6),       //记录验证码图片切换的张数
             authTrue:false,     //保存验证码输入框的状态
             loginMsg:"",
-            loginName:"",
         }
     },
     watch:{
@@ -947,7 +946,9 @@ export default {
         this.timer=setInterval(()=>{   //页面加载完成时启用定时器，调用函数，改变元素的marginLeft
             this.marginLeft();
         },15);
-        this.getName();
+        // window.addEventListener("click",this.login)
+
+        // this.getName();
         // this.sendValue();
     },
     methods:{
@@ -956,18 +957,19 @@ export default {
                 if(result.data.code==1){
                     location.reload();
                     this.$message("退出成功！");
+                    sessionStorage.removeItem("uname");
                 };
             });
         },
-        getName(){          //页面刷新获取用户名，如果已登录则显示在导航栏
-            this.axios.get("getname").then(result=>{
-                if(result.data.code==1){
-                    this.loginName=result.data.data;
-                }else{
-                    this.loginName="";
-                }
-            })
-        },
+        // getName(){          //页面刷新获取用户名，如果已登录则显示在导航栏
+        //     this.axios.get("getname").then(result=>{
+        //         if(result.data.code==1){
+        //             this.loginName=result.data.data;
+        //         }else{
+        //             this.loginName="";
+        //         }
+        //     })
+        // },
         // sendValue(){
         //    Event.$emit("send",this.imgUrl); 
         // },
@@ -994,14 +996,15 @@ export default {
                         upwd:this.upwd,
                     }
                 }).then(res=>{
-                    console.log(res.data.data)
                     if(res.data.code==1){
-                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{
+                        var uname=(res.data.data).slice(-4);
+                        sessionStorage.setItem("uname","xxmy"+uname)
+                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{ 
                             this.log=null;
                             location.reload();
                         }).catch(err=>{
-                             this.log=null;
-                             location.reload();
+                            this.log=null;
+                            location.reload();
                         });
                     }else{
                         this.$message.error("用户名或密码错误");
@@ -1019,7 +1022,9 @@ export default {
             this.log=1;     
         },
         spanHid(){          //点击按钮隐藏登录框
+            // window.addEventListener("click",this.spanHid)
             this.log=null;   
+           
         },
         timeMove(){         //绑定鼠标事件，进入停止定时器，离开启动定时器
             clearInterval(this.timer);
@@ -1050,6 +1055,15 @@ export default {
                 this.bott=e.target.dataset.bott;
             }
         },
+    },
+    mounted(){
+        // var span=document.getElementById("span");
+        // console.log(span)
+        // window.onclick=(e)=>{
+        //     if(e.target!=span){     //判断点击不是取消按钮，才可以使log=1
+        //     this.log=1;
+        //     }
+        // };
     },
     components:{}
 }

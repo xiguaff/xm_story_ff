@@ -4,28 +4,31 @@
         <div class="container">
             <div class="top_info">
                 <ul>
-                    <li style="display:none" :class="{liStyle:loginName==''}"><a href="javascript:;" @click="login">登录</a></li>
-                    <li style="display:none" :class="{liStyle:loginName!=''}">欢迎：<a href="javascript:;">{{loginName}}</a><a href="javascript:;" @click="outLogin">退出登录</a></li>
+                    <li style="display:none" :class="{liStyle:loginName==null}"><a href="javascript:;" @click="login">登录</a></li>
+                    <li style="display:none" :class="{liStyle:loginName!=null}">欢迎：<a href="javascript:;" style="color:#f55;">{{loginName}}</a><a href="javascript:;" @click="outLogin">退出登录</a></li>
                     <li><router-link to="/reg">注册</router-link></li>
-                    <li>
+                    <li :class="{active:act}" @mouseover="bkShelf" @mouseout="bkShelf" style="width:86px;padding:0 8px 0 3px;">
                         <a href="">我的书架
-                            <span class="poin"></span>
+                            <span class="poin" :class="{useAnimate:act,useAnimate1:!act}"></span>
                         </a>
                     </li>
                     <li><a href="">联系客服</a></li>
                 </ul>
+                <div class="bkShelf" :class="{bkNone:act}" @mouseover="bkShelf" @mouseout="bkShelf">
+                    <div class="bk-top"><span>我的书架</span></div>
+                </div>
             </div>
             <ul>
                 <li>Android版</li>
                 <li>IOS版</li>
                 <li><router-link to="/">首页</router-link></li>
-                <li><router-link to="/list/1" :class="{isActive:num==1}">古代言情</router-link></li>
+                <li><router-link to="/list/4" :class="{isActive:num==4}">古代言情</router-link></li>
                 <li><router-link to="/list/2" :class="{isActive:num==2}">现代言情</router-link></li>
-                <li><router-link to="/list/3" :class="{isActive:num==3}">玄幻仙侠</router-link></li>
-                <li><router-link to="/list/4" :class="{isActive:num==4}">浪漫青春</router-link></li>
-                <li><router-link to="/list/5" :class="{isActive:num==5}">悬疑</router-link></li>
-                <li><router-link to="/list/6" >改编频道</router-link></li>
-                <li><router-link to="/list/7">男生频道</router-link></li>
+                <li><router-link to="/list/1" :class="{isActive:num==1}">玄幻仙侠</router-link></li>
+                <li><router-link to="/list/5" :class="{isActive:num==5}">浪漫青春</router-link></li>
+                <li><router-link to="/list/3" :class="{isActive:num==3}">悬疑</router-link></li>
+                <li><router-link to="" >改编频道</router-link></li>
+                <li><router-link to="">男生频道</router-link></li>
             </ul>
         </div>
     </div>
@@ -35,17 +38,27 @@
 export default {
     data(){
         return {
-
+            loginName:sessionStorage.getItem("uname"),
+            // bkNone:{display:"none"},
+            act:false,
         }
     },
-    // created(){
+    // created(){n
     //     this.loginName=this.$store.state.uname;
     // },
+    methods:{
+        bkShelf(){
+            if(this.loginName!=null){
+                this.act=!this.act;
+                // this.bkNone={display:"block"};
+            }
+        },
+    },
     props:{
-        login:{type:Function},
-        num:{default:""},
-        loginName:{default:""},
-        outLogin:{type:Function},
+        login:{type:Function},      //登录函数
+        num:{default:""},       //选择的图书列表页
+        // loginName:{default:""},       //登录用户名显示
+        outLogin:{type:Function},   //退出登录函数
     }
 }
 </script>

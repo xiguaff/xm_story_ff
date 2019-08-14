@@ -38,7 +38,7 @@ import { URLSearchParams } from 'url';
 export default {
     data(){
         return {
-            imgNum:1,    //记录验证码图片切换的张数
+            imgNum:Math.ceil(Math.random()*6),    //记录验证码图片切换的张数
             imgs:[1,18,11,33,34,1],    //验证码的答案
             auth:"",    //绑定验证码输入内容
             uname:"",   //保存用户输入的用户名
@@ -78,7 +78,7 @@ export default {
             intType:"password", //保存密码框的属性
             int6:false,     //保存正则验证的状态
             int5:false,
-            showImg:1,     //记录显示密码图片的切换
+            showImg:1,     //记录显示密码状态图片的切换
         }
     },
     watch:{

@@ -3,7 +3,7 @@
     <div class="userLogin" id="login_bg" :class="{isBlock:log==1}">
     </div>
     <div class="loginInput" id="login_input" :class="{isBlock:log==1}">
-        <span @click="spanHid">Ⅹ</span>
+        <span @click="spanHid" id="span">Ⅹ</span>
         <div class="input_header">
             <h2>账号登录</h2>
             <table></table>
