@@ -162,6 +162,13 @@ table>tbody>tr>td:first-child>p{
     margin-top:15px;
     line-height: 20px;
 }
+table>tbody>tr>td:nth-child(2)>p{
+    height:20px;width:145px;
+    overflow: hidden;
+    float: right;
+    margin-top:15px;
+    line-height: 20px;
+}
 table tr>td>input{
     vertical-align: middle;
 }
@@ -173,7 +180,6 @@ table tr>td:last-child>button{
     border:1px solid #fb6b84;
     outline:none;
     border-radius:0.25rem;
-    margin-left:12px;
 }
 
 .shlef-bottom{

@@ -25,9 +25,15 @@ export default new Router({
   routes: [
     {path:'/',component:Index},     //为主页配置路径
     {path:'/list/:num',component:StoryList,props:true},     //为图书列表配置路径
-    {path:'/detail/:lid',component:Details,props:true},     //为图书详情页配置路径
+    {path:'/detail/:sid',component:Details,props:true},     //为图书详情页配置路径
     {path:'/reg',component:reg},    //为用户注册页面配置路径
     {path:'/login',component:Login},    //为用户登录页面配置路径
     {path:'/center',component:userCenter}     //为个人中心配置路由
-  ]
+  ],
+  scrollBehavior(to,from,savedPosition){
+    return {
+      x:0,
+      y:0
+      }
+    }
 })

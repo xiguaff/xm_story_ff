@@ -75,8 +75,10 @@ export default {
                     }
                 }).then(res=>{
                     if(res.data.code==1){
-                        var uname=(res.data.data).slice(-4);
-                         sessionStorage.setItem("uname","xxmy"+uname)
+                        var uname=(res.data.data[0]).slice(-4);
+                        var nickName=res.data.data[1]
+                        sessionStorage.setItem("uname","xxmy"+uname);
+                        sessionStorage.setItem("nickName",nickName)
                         this.$alert("登录成功,点击确定跳转到首页","提示",{confirmButtonText:'确定'}).then(active=>{
                             this.$router.push("/");
                         }).catch(err=>{

@@ -31,8 +31,8 @@ export default {
         }
     },
     watch:{
-        authCode(val){   //将验证框数据传递给父组件
-            this.$emit("sendValue",val);
+        authCode(){   //将验证框数据传递给父组件
+            this.$emit("sendValue",this.authCode);
         },
         uname(){
             this.$emit("sendName",this.uname);

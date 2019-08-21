@@ -79,61 +79,21 @@
             </div>
             <div class="i-3_content">
                 <div class="list-one">
-                    <img src="image/index/bangdan1.jpg" alt="">
+                    <img :src="`http://127.0.0.1:1994/${sixListOne.imgUrl}`" alt="">
                 </div>
                 <div class="icon_header">
                     <span class="num">NO.1</span>
-                    <p><a href="">山河盛宴</a></p>
-                    <p>作者：<span>天下归元</span></p>
-                    <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                    <p><router-link :to="`/detail/${sixListOne.sid}`" v-text="sixListOne.bname"></router-link></p>
+                    <p>作者：<span v-text="sixListOne.author"></span></p>
+                    <p><span>分类：</span>&nbsp;|&nbsp;<span>{{Sfamily}}</span></p>
                 </div>
             </div>
             <ul class="ul-list">
-                    <li>
-                        <span>11153</span>
-                         <span>2</span>
-                        <a href="javascript:;">夫人你马甲又掉了</a>
-                    </li>
-                    <li>
-                        <span>9508</span>
-                        <span>3</span>
-                        <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                    </li>
-                    <li>
-                        <span>7001</span>
-                        <span>4</span>
-                        <a href="javascript:;">狂医废材妃</a>
-                    </li>
-                    <li>
-                        <span>6678</span>
-                        <span>5</span>
-                        <a href="javascript:;">最美不过小时光</a>
-                    </li>
-                    <li>
-                        <span>6412</span>
-                        <span>6</span>
-                        <a href="javascript:;">盛世娇宠之名门闺香</a>
-                    </li>
-                    <li>
-                        <span>5425</span>
-                        <span>7</span>
-                        <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                    </li>
-                    <li>
-                        <span>4865</span>
-                        <span>8</span>
-                        <a href="javascript:;">战神魔妃</a>
-                    </li>
-                    <li>
-                        <span>4235</span>
-                        <span>9</span>
-                        <a href="javascript:;">爷是病娇得宠着</a>
-                    </li>
-                    <li>
-                        <span>3514</span>
-                        <span>10</span>
-                        <a href="javascript:;">神殿倾天之妖妃好甜</a>
-                    </li>
+                <li v-for="(item,i) of sixList" :key="i" v-show="i!==0">
+                    <span v-text="item.author"></span>
+                    <span v-text="i+1">2</span>
+                    <router-link :to="`/detail/${item.sid}`" v-text="item.bname"></router-link>
+                </li>      
             </ul>
         </div>
         <div class="list-middle-nav">
@@ -164,61 +124,21 @@
             </div>
             <div class="i-3_content">
                 <div class="list-one">
-                    <img src="image/index/bangdan2.jpg" alt="">
+                    <img :src="`http://127.0.0.1:1994/${fiveListOne.imgUrl}`" alt="">
                 </div>
                 <div class="icon_header">
                     <span class="num">NO.1</span>
-                    <p><a href="">山河盛宴</a></p>
-                    <p>作者：<span>天下归元</span></p>
-                    <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                    <p><router-link :to="`/detail${fiveListOne.sid}`" v-text="fiveListOne.bname"></router-link></p>
+                    <p>作者：<span v-text="fiveListOne.author"></span></p>
+                    <p><span>分类：</span>&nbsp;|&nbsp;<span>{{Sfamily}}</span></p>
                 </div>
             </div>
                 <ul class="ul-list">
-                        <li>
-                            <span>11153</span>
-                             <span>2</span>
-                            <a href="javascript:;">夫人你马甲又掉了</a>
-                        </li>
-                        <li>
-                            <span>9508</span>
-                            <span>3</span>
-                            <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                        </li>
-                        <li>
-                            <span>7001</span>
-                            <span>4</span>
-                            <a href="javascript:;">狂医废材妃</a>
-                        </li>
-                        <li>
-                            <span>6678</span>
-                            <span>5</span>
-                            <a href="javascript:;">最美不过小时光</a>
-                        </li>
-                        <li>
-                            <span>6412</span>
-                            <span>6</span>
-                            <a href="javascript:;">盛世娇宠之名门闺香</a>
-                        </li>
-                        <li>
-                            <span>5425</span>
-                            <span>7</span>
-                            <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                        </li>
-                        <li>
-                            <span>4865</span>
-                            <span>8</span>
-                            <a href="javascript:;">战神魔妃</a>
-                        </li>
-                        <li>
-                            <span>4235</span>
-                            <span>9</span>
-                            <a href="javascript:;">爷是病娇得宠着</a>
-                        </li>
-                        <li>
-                            <span>3514</span>
-                            <span>10</span>
-                            <a href="javascript:;">神殿倾天之妖妃好甜</a>
-                        </li>
+                    <li v-for="(item,i) of fiveList" :key="i" v-show="i!==0">
+                        <span v-text="item.author"></span>
+                            <span>{{i+1}}</span>
+                        <router-link :to="`/detail/${item.sid}`" v-text="item.bname"></router-link>
+                    </li>
                 </ul>
         </div>
         <div class="list-middle-nav">
@@ -268,7 +188,7 @@
         </div>
     </div>
         <my-footer></my-footer>
-        <login :spanHid="spanHid" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val" @sendName="(val)=>this.uname=val" @sendPwd="(val)=>this.upwd=val"></login>   <!--父组件接收子组件传递的值-->
+        <login :spanHid="spanHid" :loginMsg="loginMsg" :log="log" :imgUrl="imgUrl" :changeImg="changeImg" :toLogin="toLogin" v-on:sendValue="(val)=>this.authCode=val" @sendName="(val)=>this.uname=val" @sendPwd="(val)=>this.upwd=val"></login>   <!--父组件接收子组件传递的值-->
     </div>
 </template>
 <script>
@@ -291,7 +211,12 @@ export default {
             twoList:[],
             threeList:[],
             fourList:[],
+            fiveList:[],
+            fiveListOne:{},
+            sixList:[],
+            sixListOne:{},
             Sfamily:"",
+            loginMsg:"",
         }
     },
     created(){
@@ -308,6 +233,7 @@ export default {
             }else{
                 this.Sfamily="青春";
             };
+        // this.$router.go(0)
     },
     methods:{
         getList(){
@@ -317,11 +243,15 @@ export default {
                 }
             }).then(result=>{
                 var data=result.data.data
-                            //    console.log(data);
-                this.oneList=data.splice(0,4);
-                this.twoList=data.splice(0,9);
-                this.threeList=data.splice(0,9);
-                this.fourList=data.splice(0,6);
+                this.oneList=data.slice(0,4);
+                this.twoList=data.slice(4,13);
+                this.threeList=data.slice(13,22);
+                this.fourList=data.slice(22,28);
+                this.fiveList=data.slice(0,10);
+                this.sixList=data.slice(11,21);
+                this.fiveListOne=this.fiveList[0];
+                this.sixListOne=this.sixList[0];
+                // console.log(this.fiveList,this.sixList)
             })
         },
         outLogin(){
@@ -330,6 +260,7 @@ export default {
                     location.reload();
                     this.$message("退出成功！");
                     sessionStorage.removeItem("uname")
+                    sessionStorage.removeItem("nickName");
                 };
             });
         },
@@ -357,8 +288,10 @@ export default {
                     }
                 }).then(res=>{
                     if(res.data.code==1){
-                    var uname=(res.data.data).slice(-4);
-                    sessionStorage.setItem("uname","xxmy"+uname)
+                        var uname=(res.data.data[0]).slice(-4);
+                        var nickName=res.data.data[1]
+                        sessionStorage.setItem("uname","xxmy"+uname);
+                        sessionStorage.setItem("nickName",nickName)
                         this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{
                             this.log=null;
                             location.reload();

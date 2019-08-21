@@ -3,6 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+//引入公共js文件
+import common from './common.js'
+//将js文件加入到vue原型链中
+Vue.prototype.common=common
+
 //引入element ui 组件
 import Element from 'element-ui'
 Vue.use(Element)
@@ -38,6 +43,12 @@ Vue.directive("focus",{
   inserted(e){
     e.focus();
   }
+})
+
+
+//设置每次组件跳转后 回到页面顶部
+router.afterEach((to,from,next) => {
+  window.scrollTo(0,0);
 })
 
 Vue.config.productionTip = false

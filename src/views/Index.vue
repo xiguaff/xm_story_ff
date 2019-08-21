@@ -6,7 +6,7 @@
             <div class="header-top">
                 <img src="image/index/logo.png" alt="">
                 <div>
-                    <input type="text"><span><i></i><i></i></span>
+                    <input type="text" v-model="search" @keyup.13="searchBook"><span @click="searchBook"><i></i><i></i></span>
                 </div>  
                 <p>
                     <a href=""><img src="image/index/header_author.jpg" alt="">我要当作家</a>
@@ -36,50 +36,8 @@
                 </div>
                 <div class="col-3-content">
                     <ul>
-                        <li><span>[古言]</span>
-                            <a href="">盛宠之嫡妻归来</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">琴妃倾城</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">花颜策</a>
-                        </li>
-                        <li><span>[现言]</span>
-                            <a href="">夫人你马甲又掉了</a>
-                        </li>
-                        <li><span>[现言]</span>
-                            <a href="">陆先生的闪婚甜妻</a>
-                        </li>
-                        <li><span>[仙侠]</span>
-                            <a href="">战神魔妃</a>
-                        </li>
-                        <li><span>[现言]</span>
-                            <a href="">名门暖婚之权爷追妻攻略</a>
-                        </li>
-                        <li><span>[玄幻]</span>
-                            <a href="">玄医枭后</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">侯门医妃有点毒</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">盛嫁无双之神医王爷不良妃</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">盛世娇宠之名门闺香</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">贪财萌宝俏娘亲</a>
-                        </li>
-                        <li><span>[现言]</span>
-                            <a href="">爷是病娇得宠着</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">山河盛宴</a>
-                        </li>
-                        <li><span>[古言]</span>
-                            <a href="">神医娘亲之腹黑小萌宝</a>
+                        <li v-for="(p,i) of topleft" :key="i"><span>[{{p.fname}}]</span>
+                            <router-link :to="`detail/${p.sid}`" v-text="p.bname"></router-link>
                         </li>
                     </ul>
                 </div>
@@ -254,60 +212,20 @@
                 </div>
                 <div class="i-3_content">
                     <div class="list-one">
-                        <img src="image/index/bangdan1.jpg" alt="">
+                        <img :src="`http://127.0.0.1:1994/${middleOne[0].imgUrl}`" alt="">
                     </div>
                     <div class="icon_header">
                         <span class="num">NO.1</span>
-                        <p><a href="">山河盛宴</a></p>
+                        <p><router-link :to="`/detail/${middleOne[0].sid}`" v-text="middleOne[0].bname"></router-link></p>
                         <p><span>11841</span>月票</p>
-                        <p><span>古言</span>&nbsp;|&nbsp;<span>天下归元</span></p>
+                        <p><span>{{middleOne[0].fname}}</span>&nbsp;|&nbsp;<span v-text="middleOne[0].author"></span></p>
                     </div>
                 </div>
                 <ul class="ul-list">
-                    <li>
-                        <span>11153</span>
-                        <span>2</span>
-                        <a href="javascript:;">夫人你马甲又掉了</a>
-                    </li>
-                    <li>
-                        <span>9508</span>
-                        <span>3</span>
-                        <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                    </li>
-                    <li>
-                        <span>7001</span>
-                        <span>4</span>
-                        <a href="javascript:;">狂医废材妃</a>
-                    </li>
-                    <li>
-                        <span>6678</span>
-                        <span>5</span>
-                        <a href="javascript:;">最美不过小时光</a>
-                    </li>
-                    <li>
-                        <span>6412</span>
-                        <span>6</span>
-                        <a href="javascript:;">盛世娇宠之名门闺香</a>
-                    </li>
-                    <li>
-                        <span>5425</span>
-                        <span>7</span>
-                        <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                    </li>
-                    <li>
-                        <span>4865</span>
-                        <span>8</span>
-                        <a href="javascript:;">战神魔妃</a>
-                    </li>
-                    <li>
-                        <span>4235</span>
-                        <span>9</span>
-                        <a href="javascript:;">爷是病娇得宠着</a>
-                    </li>
-                    <li>
-                        <span>3514</span>
-                        <span>10</span>
-                        <a href="javascript:;">神殿倾天之妖妃好甜</a>
+                    <li v-for="(p,i) of middleOne" :key="i" v-show="i!==0">
+                        <span v-text="p.author"></span>
+                        <span>{{i+1}}</span>
+                        <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
                     </li>
                 </ul>
             </div>
@@ -319,120 +237,40 @@
                 <div class="nav_content" :class="{navActive:dh==0}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img src="image/index/bangdan1.jpg" alt="">
+                            <img :src="`http://127.0.0.1:1994/${middleTwo[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
-                            <p><a href="">山河盛宴</a></p>
-                            <p>作者：<span>天下归元</span></p>
-                            <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                            <p><router-link :to="`/detail/${middleTwo[0].sid}`" v-text="middleTwo[0].bname"></router-link></p>
+                            <p>作者：<span v-text="middleTwo[0].author"></span></p>
+                            <p><span>分类：</span>&nbsp;|&nbsp;<span v-text="middleTwo[0].fname"></span></p>
                         </div>
                     </div>
                     <ul class="ul-list">
-                    <li>
-                        <span>11153</span>
-                         <span>2</span>
-                        <a href="javascript:;">夫人你马甲又掉了</a>
-                    </li>
-                    <li>
-                        <span>9508</span>
-                        <span>3</span>
-                        <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                    </li>
-                    <li>
-                        <span>7001</span>
-                        <span>4</span>
-                        <a href="javascript:;">狂医废材妃</a>
-                    </li>
-                    <li>
-                        <span>6678</span>
-                        <span>5</span>
-                        <a href="javascript:;">最美不过小时光</a>
-                    </li>
-                    <li>
-                        <span>6412</span>
-                        <span>6</span>
-                        <a href="javascript:;">盛世娇宠之名门闺香</a>
-                    </li>
-                    <li>
-                        <span>5425</span>
-                        <span>7</span>
-                        <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                    </li>
-                    <li>
-                        <span>4865</span>
-                        <span>8</span>
-                        <a href="javascript:;">战神魔妃</a>
-                    </li>
-                    <li>
-                        <span>4235</span>
-                        <span>9</span>
-                        <a href="javascript:;">爷是病娇得宠着</a>
-                    </li>
-                    <li>
-                        <span>3514</span>
-                        <span>10</span>
-                        <a href="javascript:;">神殿倾天之妖妃好甜</a>
-                    </li>
+                        <li v-for="(p,i) of middleTwo" :key="i" v-show="i!==0">
+                            <span v-text="p.author"></span>
+                            <span>{{i+1}}</span>
+                            <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
+                        </li>
                     </ul>
                 </div>
                 <div class="nav_content" :class="{navActive:dh==1}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img src="image/index/bangdan2.jpg" alt="">
+                            <img :src="`http://127.0.0.1:1994/${middleThree[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
-                            <p><a href="">名门暖婚之权爷追妻攻略</a></p>
-                            <p>作者：<span>天下第一</span></p>
-                            <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                            <p><router-link :to="`/detail/${middleThree[0].sid}`" v-text="middleThree[0].bname"></router-link></p>
+                            <p>作者：<span v-text="middleThree[0].author"></span></p>
+                            <p><span>分类：</span>&nbsp;|&nbsp;<span v-text="middleThree[0].fname"></span></p>
                         </div>
                     </div>
                     <ul class="ul-list">
-                        <li>
-                            <span>11153</span>
-                             <span>2</span>
-                            <a href="javascript:;">夫人你马甲又掉了</a>
-                        </li>
-                        <li>
-                            <span>9508</span>
-                            <span>3</span>
-                            <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                        </li>
-                        <li>
-                            <span>7001</span>
-                            <span>4</span>
-                            <a href="javascript:;">狂医废材妃</a>
-                        </li>
-                        <li>
-                            <span>6678</span>
-                            <span>5</span>
-                            <a href="javascript:;">最美不过小时光</a>
-                        </li>
-                        <li>
-                            <span>6412</span>
-                            <span>6</span>
-                            <a href="javascript:;">盛世娇宠之名门闺香</a>
-                        </li>
-                        <li>
-                            <span>5425</span>
-                            <span>7</span>
-                            <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                        </li>
-                        <li>
-                            <span>4865</span>
-                            <span>8</span>
-                            <a href="javascript:;">战神魔妃</a>
-                        </li>
-                        <li>
-                            <span>4235</span>
-                            <span>9</span>
-                            <a href="javascript:;">爷是病娇得宠着</a>
-                        </li>
-                        <li>
-                            <span>3514</span>
-                            <span>10</span>
-                            <a href="javascript:;">神殿倾天之妖妃好甜</a>
+                        <li v-for="(p,i) of middleThree" :key="i" v-show="i!==0">
+                            <span v-text="p.author"></span>
+                             <span>{{i+1}}</span>
+                            <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
                         </li>
                     </ul>
                 </div>
@@ -443,60 +281,20 @@
                 </div>
                 <div class="i-3_content">
                     <div class="list-one">
-                        <img src="image/index/bangdan1.jpg" alt="">
+                        <img :src="`http://127.0.0.1:1994/${middleFour[0].imgUrl}`" alt="">
                     </div>
                     <div class="icon_header">
                         <span class="num">NO.1</span>
-                        <p><a href="">山河盛宴</a></p>
-                        <p>作者：<span>天下归元</span></p>
-                        <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                        <p><router-link :to="`/detail/${middleFour[0].sid}`" v-text="middleFour[0].bname"></router-link></p>
+                        <p>作者：<span v-text="middleFour[0].author"></span></p>
+                        <p><span>分类：</span>&nbsp;|&nbsp;<span>{{middleFour[0].fname}}</span></p>
                     </div>
                 </div>
                 <ul class="ul-list">
-                    <li>
-                        <span>11153</span>
-                        <span>2</span>
-                        <a href="javascript:;">夫人你马甲又掉了</a>
-                    </li>
-                    <li>
-                        <span>9508</span>
-                        <span>3</span>
-                        <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                    </li>
-                    <li>
-                        <span>7001</span>
-                        <span>4</span>
-                        <a href="javascript:;">狂医废材妃</a>
-                    </li>
-                    <li>
-                        <span>6678</span>
-                        <span>5</span>
-                        <a href="javascript:;">最美不过小时光</a>
-                    </li>
-                    <li>
-                        <span>6412</span>
-                        <span>6</span>
-                        <a href="javascript:;">盛世娇宠之名门闺香</a>
-                    </li>
-                    <li>
-                        <span>5425</span>
-                        <span>7</span>
-                        <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                    </li>
-                    <li>
-                        <span>4865</span>
-                        <span>8</span>
-                         <a href="javascript:;">战神魔妃</a>
-                    </li>
-                    <li>
-                        <span>4235</span>
-                        <span>9</span>
-                        <a href="javascript:;">爷是病娇得宠着</a>
-                    </li>
-                    <li>
-                        <span>3514</span>
-                        <span>10</span>
-                        <a href="javascript:;">神殿倾天之妖妃好甜</a>
+                    <li v-for="(p,i) of middleThree" :key="i" v-show="i!==0">
+                        <span v-text="p.author"></span>
+                        <span>{{i+1}}</span>
+                        <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
                     </li>
                 </ul>
             </div>
@@ -506,60 +304,20 @@
                 </div>
                 <div class="i-3_content">
                     <div class="list-one">
-                        <img src="image/index/bangdan1.jpg" alt="">
+                        <img :src="`http://127.0.0.1:1994/${middleFive[0].imgUrl}`" alt="">
                     </div>
                     <div class="icon_header">
                         <span class="num">NO.1</span>
-                        <p><a href="">山河盛宴</a></p>
-                        <p>作者：<span>天下归元</span></p>
-                        <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                        <p><router-link :to="`/detail/${middleFive[0].sid}`" v-text="middleFive[0].bname"></router-link></p>
+                        <p>作者：<span v-text="middleFive[0].author"></span></p>
+                        <p><span>分类：</span>&nbsp;|&nbsp;<span>{{middleFive[0].fname}}</span></p>
                     </div>
                 </div>
                 <ul class="ul-list">
-                            <li>
-                                <span>11153</span>
-                                <span>2</span>
-                                <a href="javascript:;">夫人你马甲又掉了</a>
-                            </li>
-                            <li>
-                                <span>9508</span>
-                                <span>3</span>
-                                <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                            </li>
-                        <li>
-                            <span>7001</span>
-                            <span>4</span>
-                            <a href="javascript:;">狂医废材妃</a>
-                        </li>
-                        <li>
-                            <span>6678</span>
-                            <span>5</span>
-                            <a href="javascript:;">最美不过小时光</a>
-                        </li>
-                        <li>
-                            <span>6412</span>
-                            <span>6</span>
-                            <a href="javascript:;">盛世娇宠之名门闺香</a>
-                        </li>
-                        <li>
-                            <span>5425</span>
-                            <span>7</span>
-                            <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                        </li>
-                        <li>
-                            <span>4865</span>
-                            <span>8</span>
-                            <a href="javascript:;">战神魔妃</a>
-                        </li>
-                        <li>
-                            <span>4235</span>
-                            <span>9</span>
-                            <a href="javascript:;">爷是病娇得宠着</a>
-                        </li>
-                        <li>
-                            <span>3514</span>
-                            <span>10</span>
-                        <a href="javascript:;">神殿倾天之妖妃好甜</a>
+                    <li v-for="(p,i) of middleFive" :key="i" v-show="i!==0">
+                        <span v-text="p.author"></span>
+                        <span>{{i+1}}</span>
+                        <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
                     </li>
                 </ul>
             </div>
@@ -578,160 +336,60 @@
                 <div class="bottom_content" :class="{bottActive:bott==0}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img src="image/index/bangdan1.jpg" alt="">
+                            <img :src="`http://127.0.0.1:1994/${middleSix[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
-                            <p><a href="">山河盛宴</a></p>
-                            <p>作者：<span>天下归元</span></p>
-                            <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                            <p><router-link :to="`/detail/${middleSix[0].sid}`" v-text="middleSix[0].bname"></router-link></p>
+                            <p>作者：<span v-text="middleSix[0].author"></span></p>
+                            <p><span>分类：</span>&nbsp;|&nbsp;<span>{{middleSix[0].fname}}</span></p>
                         </div>
                     </div>
                     <ul class="ul-list">
-                    <li>
-                        <span>11153</span>
-                         <span>2</span>
-                        <a href="javascript:;">夫人你马甲又掉了</a>
-                    </li>
-                    <li>
-                        <span>9508</span>
-                        <span>3</span>
-                        <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                    </li>
-                    <li>
-                        <span>7001</span>
-                        <span>4</span>
-                        <a href="javascript:;">狂医废材妃</a>
-                    </li>
-                    <li>
-                        <span>6678</span>
-                        <span>5</span>
-                        <a href="javascript:;">最美不过小时光</a>
-                    </li>
-                    <li>
-                        <span>6412</span>
-                        <span>6</span>
-                        <a href="javascript:;">盛世娇宠之名门闺香</a>
-                    </li>
-                    <li>
-                        <span>5425</span>
-                        <span>7</span>
-                        <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                    </li>
-                    <li>
-                        <span>4865</span>
-                        <span>8</span>
-                        <a href="javascript:;">战神魔妃</a>
-                    </li>
-                    <li>
-                        <span>4235</span>
-                        <span>9</span>
-                        <a href="javascript:;">爷是病娇得宠着</a>
-                    </li>
-                    <li>
-                        <span>3514</span>
-                        <span>10</span>
-                        <a href="javascript:;">神殿倾天之妖妃好甜</a>
-                    </li>
+                        <li v-for="(p,i) of middleSix" :key="i" v-show="i!==0">
+                            <span v-text="p.author"></span>
+                            <span>{{i+1}}</span>
+                            <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
+                        </li>
                     </ul>
                 </div>
                 <div class="bottom_content" :class="{bottActive:bott==1}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img src="image/index/bangdan2.jpg" alt="">
+                            <img :src="`http://127.0.0.1:1994/${middleSeven[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
-                            <p><a href="">名门暖婚之权爷追妻攻略</a></p>
-                            <p>作者：<span>天下第一</span></p>
-                            <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                            <p><router-link :to="`/detail/${middleSeven[0].sid}`" v-text="middleSeven[0].bname"></router-link></p>
+                            <p>作者：<span v-text="middleSeven[0].author"></span></p>
+                            <p><span>分类：</span>&nbsp;|&nbsp;<span>{{middleSeven[0].fname}}</span></p>
                         </div>
                     </div>
                     <ul class="ul-list">
-                        <li>
-                            <span>11153</span>
-                             <span>2</span>
-                            <a href="javascript:;">夫人你马甲又掉了</a>
-                        </li>
-                        <li>
-                            <span>9508</span>
-                            <span>3</span>
-                            <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                        </li>
-                        <li>
-                            <span>7001</span>
-                            <span>4</span>
-                            <a href="javascript:;">狂医废材妃</a>
-                        </li>
-                        <li>
-                            <span>6678</span>
-                            <span>5</span>
-                            <a href="javascript:;">最美不过小时光</a>
-                        </li>
-                        <li>
-                            <span>6412</span>
-                            <span>6</span>
-                            <a href="javascript:;">盛世娇宠之名门闺香</a>
-                        </li>
-                        <li>
-                            <span>5425</span>
-                            <span>7</span>
-                            <a href="javascript:;">神医娘亲之腹黑小萌宝</a>
-                        </li>
-                        <li>
-                            <span>4865</span>
-                            <span>8</span>
-                            <a href="javascript:;">战神魔妃</a>
-                        </li>
-                        <li>
-                            <span>4235</span>
-                            <span>9</span>
-                            <a href="javascript:;">爷是病娇得宠着</a>
-                        </li>
-                        <li>
-                            <span>3514</span>
-                            <span>10</span>
-                            <a href="javascript:;">神殿倾天之妖妃好甜</a>
+                        <li v-for="(p,i) of middleSeven" :key="i" v-show="i!==0">
+                            <span v-text="p.author"></span>
+                            <span>{{i+1}}</span>
+                            <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
                         </li>
                     </ul>
                 </div> 
                 <div class="bottom_content" :class="{bottActive:bott==2}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img src="image/index/bangdan2.jpg" alt="">
+                            <img :src="`http://127.0.0.1:1994/${middleEight[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
-                            <p><a href="">名门暖婚之权爷追妻攻略</a></p>
-                            <p>作者：<span>天下第一</span></p>
-                            <p><span>分类：</span>&nbsp;|&nbsp;<span>玄幻</span></p>
+                            <p><router-link :to="`/detail/${middleEight[0].sid}`" v-text="middleEight[0].bname"></router-link></p>
+                            <p>作者：<span v-text="middleEight[0].author"></span></p>
+                            <p><span>分类：</span>&nbsp;|&nbsp;<span>{{middleEight[0].fname}}</span></p>
                         </div>
                     </div>
                     <ul class="ul-list">
-                        <li>
-                            <span>11153</span>
-                             <span>2</span>
-                            <a href="javascript:;">夫人你马甲又掉了</a>
-                        </li>
-                        <li>
-                            <span>9508</span>
-                            <span>3</span>
-                            <a href="javascript:;">名门暖婚之权爷追妻攻略</a>
-                        </li>
-                        <li>
-                            <span>7001</span>
-                            <span>4</span>
-                            <a href="javascript:;">狂医废材妃</a>
-                        </li>
-                        <li>
-                            <span>6678</span>
-                            <span>5</span>
-                            <a href="javascript:;">最美不过小时光</a>
-                        </li>
-                        <li>
-                            <span>6412</span>
-                            <span>6</span>
-                            <a href="javascript:;">盛世娇宠之名门闺香</a>
+                        <li v-for="(p,i) of middleEight" :key="i" v-show="i!==0">
+                            <span v-text="p.author"></span>
+                            <span>{{i+1}}</span>
+                            <router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link>
                         </li>
                     </ul>
                 </div> 
@@ -765,20 +423,13 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img src="image/index/bot4-list.jpg" alt="">
-                            <p>夫人嚣张我惯的</p>
-                            <p>一襟晚照 / 著</p>
+                            <img :src="`http://127.0.0.1:1994/${bottomOne[0].imgUrl}`" alt="">
+                            <p><router-link :to="`/detail/${bottomOne[0].sid}`" v-text="bottomOne[0].bname"></router-link></p>
+                            <p>{{bottomOne[0].author}} / 著</p>
                         </div>
                         <div class="right_list">
                             <ul>
-                                <li><a href="javascript:;">言先生的竹马小迷糊</a></li>
-                                <li><a href="javascript:;">穿越之医路芬芳</a></li>
-                                <li><a href="javascript:;">田园之医妻有毒</a></li>
-                                <li><a href="javascript:;">他许她错爱情深</a></li>
-                                <li><a href="javascript:;">邪王宠妃之公主别想淘</a></li>
-                                <li><a href="javascript:;">只许一人入君心</a></li>
-                                <li><a href="javascript:;">神医魔女之攻略冷萌龙神</a></li>
-                                <li><a href="javascript:;">重生之相门虎女</a></li>
+                                <li v-for="(p,i) of bottomOne" :key="i" v-show="i!==0"><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></li>
                             </ul>
                         </div>
                     </div>
@@ -788,20 +439,13 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img src="image/index/bot4-list2.jpg" alt="">
-                            <p>夫人嚣张我惯的</p>
-                            <p>一襟晚照 / 著</p>
+                            <img :src="`http://127.0.0.1:1994/${bottomTwo[0].imgUrl}`" alt="">
+                            <p><router-link :to="`/detail/${bottomTwo[0].sid}`" v-text="bottomOne[0].bname"></router-link></p>
+                            <p>{{bottomTwo[0].author}} / 著</p>
                         </div>
                         <div class="right_list">
                             <ul>
-                                <li><a href="javascript:;">言先生的竹马小迷糊</a></li>
-                                <li><a href="javascript:;">穿越之医路芬芳</a></li>
-                                <li><a href="javascript:;">田园之医妻有毒</a></li>
-                                <li><a href="javascript:;">他许她错爱情深</a></li>
-                                <li><a href="javascript:;">邪王宠妃之公主别想淘</a></li>
-                                <li><a href="javascript:;">只许一人入君心</a></li>
-                                <li><a href="javascript:;">神医魔女之攻略冷萌龙神</a></li>
-                                <li><a href="javascript:;">重生之相门虎女</a></li>
+                                <li v-for="(p,i) of bottomTwo" :key="i" v-show="i!==0"><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></li>
                             </ul>
                         </div>
                     </div>
@@ -811,20 +455,13 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img src="image/index/bot4-list3.jpg" alt="">
-                            <p>夫人嚣张我惯的</p>
-                            <p>一襟晚照 / 著</p>
+                            <img :src="`http://127.0.0.1:1994/${bottomThree[0].imgUrl}`" alt="">
+                            <p><router-link :to="`/detail/${bottomThree[0].sid}`" v-text="bottomThree[0].bname"></router-link></p>
+                            <p>{{bottomThree[0].author}} / 著</p>
                         </div>
                         <div class="right_list">
                             <ul>
-                                <li><a href="javascript:;">言先生的竹马小迷糊</a></li>
-                                <li><a href="javascript:;">穿越之医路芬芳</a></li>
-                                <li><a href="javascript:;">田园之医妻有毒</a></li>
-                                <li><a href="javascript:;">他许她错爱情深</a></li>
-                                <li><a href="javascript:;">邪王宠妃之公主别想淘</a></li>
-                                <li><a href="javascript:;">只许一人入君心</a></li>
-                                <li><a href="javascript:;">神医魔女之攻略冷萌龙神</a></li>
-                                <li><a href="javascript:;">重生之相门虎女</a></li>
+                                <li v-for="(p,i) of bottomThree" :key="i" v-show="i!==0"><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></li>
                             </ul>
                         </div>
                     </div>
@@ -838,20 +475,13 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img src="image/index/bot4-list4.jpg" alt="">
-                            <p>夫人嚣张我惯的</p>
-                            <p>一襟晚照 / 著</p>
+                            <img :src="`http://127.0.0.1:1994/${bottomFour[0].imgUrl}`" alt="">
+                            <p><router-link :to="`/detail/${bottomFour[0].sid}`" v-text="bottomFour[0].bname"></router-link></p>
+                            <p>{{bottomFour[0].author}} / 著</p>
                         </div>
                         <div class="right_list">
                             <ul>
-                                <li><a href="javascript:;">言先生的竹马小迷糊</a></li>
-                                <li><a href="javascript:;">穿越之医路芬芳</a></li>
-                                <li><a href="javascript:;">田园之医妻有毒</a></li>
-                                <li><a href="javascript:;">他许她错爱情深</a></li>
-                                <li><a href="javascript:;">邪王宠妃之公主别想淘</a></li>
-                                <li><a href="javascript:;">只许一人入君心</a></li>
-                                <li><a href="javascript:;">神医魔女之攻略冷萌龙神</a></li>
-                                <li><a href="javascript:;">重生之相门虎女</a></li>
+                                <li v-for="(p,i) of bottomFour" :key="i" v-show="i!==0"><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></li>
                             </ul>
                         </div>
                     </div>
@@ -861,20 +491,13 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img src="image/index/bot4-list5.jpg" alt="">
-                            <p>夫人嚣张我惯的</p>
-                            <p>一襟晚照 / 著</p>
+                            <img :src="`http://127.0.0.1:1994/${bottomFive[0].imgUrl}`" alt="">
+                            <p><router-link :to="`/detail/${bottomFive[0].sid}`" v-text="bottomFive[0].bname"></router-link></p>
+                            <p>{{bottomFive[0].author}} / 著</p>
                         </div>
                         <div class="right_list">
                             <ul>
-                                <li><a href="javascript:;">言先生的竹马小迷糊</a></li>
-                                <li><a href="javascript:;">穿越之医路芬芳</a></li>
-                                <li><a href="javascript:;">田园之医妻有毒</a></li>
-                                <li><a href="javascript:;">他许她错爱情深</a></li>
-                                <li><a href="javascript:;">邪王宠妃之公主别想淘</a></li>
-                                <li><a href="javascript:;">只许一人入君心</a></li>
-                                <li><a href="javascript:;">神医魔女之攻略冷萌龙神</a></li>
-                                <li><a href="javascript:;">重生之相门虎女</a></li>
+                                <li v-for="(p,i) of bottomFive" :key="i" v-show="i!==0"><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></li>
                             </ul>
                         </div>
                     </div>
@@ -884,20 +507,13 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img src="image/index/bot4-list6.jpg" alt="">
-                            <p>夫人嚣张我惯的</p>
-                            <p>一襟晚照 / 著</p>
+                            <img :src="`http://127.0.0.1:1994/${bottomSix[0].imgUrl}`" alt="">
+                            <p><router-link :to="`/detail/${bottomSix[0].sid}`" v-text="bottomSix[0].bname"></router-link></p>
+                            <p>{{bottomSix[0].author}} / 著</p>
                         </div>
                         <div class="right_list">
                             <ul>
-                                <li><a href="javascript:;">言先生的竹马小迷糊</a></li>
-                                <li><a href="javascript:;">穿越之医路芬芳</a></li>
-                                <li><a href="javascript:;">田园之医妻有毒</a></li>
-                                <li><a href="javascript:;">他许她错爱情深</a></li>
-                                <li><a href="javascript:;">邪王宠妃之公主别想淘</a></li>
-                                <li><a href="javascript:;">只许一人入君心</a></li>
-                                <li><a href="javascript:;">神医魔女之攻略冷萌龙神</a></li>
-                                <li><a href="javascript:;">重生之相门虎女</a></li>
+                                <li v-for="(p,i) of bottomSix" :key="i" v-show="i!==0"><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></li>
                             </ul>
                         </div>
                     </div>
@@ -913,7 +529,7 @@
     </div>
 </template>
 <script>
-import { setInterval, clearInterval } from 'timers';
+import { setInterval, clearInterval, setTimeout } from 'timers';
 import Event from '../Even.js';
 export default {
     data(){
@@ -923,41 +539,96 @@ export default {
             bott:0,      //定义变量保存元素初始样式
             marleft:0,   //定义变量保存元素的marginLeft值
             timer:"",    //保存定时器函数，用于释放
-            log:null,    //登录框隐藏切换
+            log:this.$store.state.log,    //登录框隐藏切换
             uname:"",    //双向绑定姓名框的值
             upwd:"",     //双向绑定密码框的值
             authCode:"", //双向绑定验证框的值
-            arr:[1,18,11,33,34,1],    //验证码的答案
+            arr:this.$store.state.arr,    //验证码的答案
             imgUrl:Math.ceil(Math.random()*6),       //记录验证码图片切换的张数
             authTrue:false,     //保存验证码输入框的状态
             loginMsg:"",
+            search:"",
+            indexList:[],
+            fname:[],
+            topleft:[],
+            middleOne:[{imgUrl:""}],
+            middleTwo:[{imgUrl:""}],
+            middleThree:[{imgUrl:""}],
+            middleFour:[{imgUrl:""}],
+            middleFive:[{imgUrl:""}],
+            middleSix:[{imgUrl:""}],
+            middleSeven:[{imgUrl:""}],
+            middleEight:[{imgUrl:""}],
+            bottomOne:[{imgUrl:""}],
+            bottomTwo:[{imgUrl:""}],
+            bottomThree:[{imgUrl:""}],
+            bottomFour:[{imgUrl:""}],
+            bottomFive:[{imgUrl:""}],
+            bottomSix:[{imgUrl:""}],
         }
     },
     watch:{
+        loginMsg(){
+            console.log(this.loginMsg)
+        },
         authCode(){
             if(this.arr[this.imgUrl-1]==this.authCode){
                 this.authTrue=true;
             }else{
                 this.authTrue=false;
-            };
+            }
         },
     },
     created(){
+        this.getIndex();
         this.timer=setInterval(()=>{   //页面加载完成时启用定时器，调用函数，改变元素的marginLeft
             this.marginLeft();
         },15);
-        // window.addEventListener("click",this.login)
+        window.onload=function(){
+            window.scrollTo(0,0)
+        }
 
         // this.getName();
         // this.sendValue();
     },
     methods:{
+        getIndex(){
+            this.axios.get("/getIndex").then(res=>{
+                this.indexList=res.data.data[0];
+                this.fname=res.data.data[1];
+                for(var i=0;i<this.indexList.length;i++){
+                    this.indexList[i].fname=this.fname[this.indexList[i].family_id-1].fname;
+                }
+                this.topleft=this.indexList.splice(0,15);
+                this.middleOne=this.indexList.slice(0,10);
+                this.middleTwo=this.indexList.slice(10,20);
+                this.middleThree=this.indexList.slice(20,30);
+                this.middleFour= this.indexList.slice(30,40);
+                this.middleFive=this.indexList.slice(40,50);
+                this.middleSix=this.indexList.slice(50,60);
+                this.middleSeven=this.indexList.slice(60,70);
+                this.middleEight=this.indexList.slice(70,80);
+                this.bottomOne=this.indexList.slice(80,89);
+                this.bottomTwo=this.indexList.slice(90,99);
+                this.bottomThree=this.indexList.slice(100,109);
+                this.bottomFour=this.indexList.slice(110,119);
+                this.bottomFive=this.indexList.slice(116,129);
+                this.bottomSix=this.indexList.slice(85,94);
+                console.log(this.bottomOne)
+            }).catch(err=>{
+                console.log(err);
+            })
+        },
+        searchBook(){
+            console.log(this.search)
+        },
         outLogin(){
             this.axios.get("outlogin").then(result=>{
                 if(result.data.code==1){
                     location.reload();
                     this.$message("退出成功！");
                     sessionStorage.removeItem("uname");
+                    sessionStorage.removeItem("nickName");
                 };
             });
         },
@@ -973,7 +644,7 @@ export default {
         // sendValue(){
         //    Event.$emit("send",this.imgUrl); 
         // },
-        toLogin(){          //用户登录时间
+        toLogin(){          //用户登录
             if(this.uname==""&&this.upwd==""){
                 this.loginMsg="请输入用户名和密码";
                 return;
@@ -997,8 +668,11 @@ export default {
                     }
                 }).then(res=>{
                     if(res.data.code==1){
-                        var uname=(res.data.data).slice(-4);
-                        sessionStorage.setItem("uname","xxmy"+uname)
+                        var uname=(res.data.data[0]).slice(-4);
+                        var nickName=res.data.data[1]
+                        console.log(uname,nickName)
+                        sessionStorage.setItem("uname","xxmy"+uname);
+                        sessionStorage.setItem("nickName",nickName)
                         this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{ 
                             this.log=null;
                             location.reload();
@@ -1064,6 +738,73 @@ export default {
         //     this.log=1;
         //     }
         // };
+        var i = 0;      //记录图片的张数
+        var len = 740;  //每次移动的距离
+        function moveTo(){      //调用全局函数
+            i++;
+            move();
+        }
+        var timer = setInterval(moveTo,3000);
+        var $imgs=$("#imgs");
+        var $idns=$("#idns li");
+        function move(){
+            $imgs.css("margin-left",-i*len+"px").addClass("trans");
+            if(i==4){
+                i=0;
+                setTimeout(function(){
+                    $imgs.css("margin-left",0).removeClass("trans");
+                },500)
+            };
+            if(i<0){
+                i=3;
+                $imgs.css("margin-left",-4*len+"px").removeClass("trans");
+                setTimeout(function(){
+                    $imgs.css("margin-left",-i*len+"px").addClass("trans");
+                },100)
+            }
+            $idns.eq(i).addClass("active").siblings("li").removeClass("active")
+        }
+        var canClick=true;
+        $idns.click(function(){
+            if(canClick){
+                i=$(this).index();
+                move();
+                canClick=false;
+                setTimeout(function(){
+                    canClick=true;
+                },600)
+            }
+        });
+        var $banner=$("#banner");
+        $banner.mouseenter(function(){
+            clearInterval(timer);
+        })
+        $banner.mouseleave(function(){
+            timer = setInterval(moveTo,3000);
+        });
+        var $btnRight=$("#btn-right");
+        var $btnLeft=$("#btn-left");
+        var canClick=true;
+        $btnRight.click(function(){
+            if(canClick){
+                i++;
+                move();
+                canClick=false;
+                setTimeout(function(){
+                    canClick=true;
+                },600);
+            }
+        });
+        $btnLeft.click(function(){
+            if(canClick){
+                i--;
+                move();
+                canClick=false;
+                setTimeout(function(){
+                    canClick=true;
+                },600);
+            }
+        });
     },
     components:{}
 }

@@ -247,15 +247,31 @@ b{
 }
 .detail-middle{
     width:70%;
-    margin-top:30px;
+    margin-top:10px;
 }
 .detail-intr{
-    height:500px;
-    border:1px solid #f00;
+    min-height:300px;
+}
+.detail-intr>p{
+    padding:10px;
+    line-height: 50px;
+}
+.detail-intr>button{
+    width:80px;height:30px;
+    outline: none;
+    background:#fff;
+    border:1px solid #999;
+    border-radius: 0.25rem;
+    color:#999;
+    float:right;
+    /* border:1px solid # */
+}
+.detail-intr>button>img{
+    width:20px;height:20px;
+    vertical-align: middle;
+    margin-left:10px;
 
 }
-
-
 
 
 .detail-middle-title{
@@ -422,3 +438,5 @@ b{
 .bottom-content>div:last-child{
     margin-left:10px;
 }
+
+

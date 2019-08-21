@@ -233,7 +233,7 @@ ul{
     margin:0 10px;
 }
 #idns>li.active{
-    background:blue;
+    background:#f00;
 }
 #idns{
     position: absolute;
@@ -917,4 +917,8 @@ ul.ul-list{
 
 .el-message-box{
     z-index:100;
+}
+
+.trans{
+    transition:all 0.5s;
 }

@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    uname:"",
+      log:null,
+      arr:[1,18,11,33,34,1],
+      list:[],
   },
   mutations: {
 

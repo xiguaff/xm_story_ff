@@ -5,10 +5,10 @@
             <div class="top_info">
                 <ul>
                     <li style="display:none" :class="{liStyle:loginName==null}"><a href="javascript:;" @click="login">登录</a></li>
-                    <li style="display:none" :class="{liStyle:loginName!=null}">欢迎：<a href="javascript:;" style="color:#f55;">{{loginName}}</a><a href="javascript:;" @click="outLogin">退出登录</a></li>
+                    <li style="display:none" :class="{liStyle:loginName!=null}">欢迎：<router-link to="/center" style="color:#f55;">{{loginName}}</router-link><a href="javascript:;" @click="outLogin">退出登录</a></li>
                     <li><router-link to="/reg">注册</router-link></li>
                     <li :class="{active:act}" @mouseover="bkShelf" @mouseout="bkShelf" style="width:86px;padding:0 8px 0 3px;">
-                        <a href="">我的书架
+                        <a href="javascript:;" @click="toShelf">我的书架
                             <span class="poin" :class="{useAnimate:act,useAnimate1:!act}"></span>
                         </a>
                     </li>
@@ -38,15 +38,23 @@
 export default {
     data(){
         return {
-            loginName:sessionStorage.getItem("uname"),
+            loginName:sessionStorage.getItem("nickName")=="null"?sessionStorage.getItem("uname"):sessionStorage.getItem("nickName"),
             // bkNone:{display:"none"},
             act:false,
+            // toShelf:this.$store.state.toShelf,
         }
     },
-    // created(){n
-    //     this.loginName=this.$store.state.uname;
-    // },
+    created(){
+        // this.loginName=this.$store.state.uname;
+    },
     methods:{
+        toShelf(){
+            if(this.loginName){
+                this.$router.push("/center")
+            }else{
+                this.$message("请先登录");
+            }
+        },
         bkShelf(){
             if(this.loginName!=null){
                 this.act=!this.act;

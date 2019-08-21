@@ -33,11 +33,10 @@
 </template>
 <script>
 import { URLSearchParams } from 'url';
-    var width=window.outerWidth;
-    console.log(width)
 export default {
     data(){
         return {
+            widthout:0,
             imgNum:Math.ceil(Math.random()*6),    //记录验证码图片切换的张数
             imgs:[1,18,11,33,34,1],    //验证码的答案
             auth:"",    //绑定验证码输入内容
@@ -82,6 +81,9 @@ export default {
         }
     },
     watch:{
+        // widthout(){
+        //     console.log(this.widthout)
+        // },
         uname(){    //监听用户框的值，即时验证手机号的格式
             var reg=/^1[3-8]\d{9}$/     //创建正则表达式验证格式
             if(!reg.test(this.uname)){
@@ -179,14 +181,18 @@ export default {
                     return;
                 })
             }else{
-                // var late=new URLSearchParams();
-                // late.append('uname','this.uname');
-                // late.append('upwd','this.upwd');
-                // console.log(late);
+                // var date=new URLSearchParams();
+                // date.append('uname','this.uname');
+                // date.append('upwd','this.upwd');
+                // console.log(date);
+                var regTime = new Date().toLocaleString('chinese',{hour12:false});
+                    regTime = regTime.replace(/\//g,"-");
                 var res=this.qs.stringify({
                     uname:this.uname,
                     upwd:this.upwd,
+                    regTime:regTime,
                 })
+                console.log(res)
                 this.axios.post("reg",
                     res
                 ).then(result=>{
@@ -314,6 +320,10 @@ export default {
             }
         },
     },
+    // mounted(){    
+    //     this.widthout=window.outerWidth;
+    //     console.log(this.widthout)
+    // },
 }
 </script>
 <style>
