@@ -190,9 +190,9 @@ export default {
     data(){
         return {
             authCode:"", //双向绑定验证框的值
-            arr1:[1,18,11,33,34,1],    //验证码的答案
+            arr1:this.$store.state.arr,    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
-            log:null,    //登录框隐藏切换
+            log:this.$store.state.log,    //登录框隐藏切换
             // fdjStyle:{
             //     display:"none",
             // },
@@ -209,7 +209,7 @@ export default {
             heightOne:0,
             divWidth:0,     //保存小滑块元素的宽高
             divHeight:0,
-            arr:{},
+            arr:{imgUrl:"gy/dnyf.jpg"},
             fname:{},
             loginMsg:"",
             authTrue:false,     //保存验证码输入框的状态
@@ -239,7 +239,6 @@ export default {
             }else{
                 this.authTrue=false;
             };
-
         },
     },
     created(){
@@ -283,7 +282,6 @@ export default {
             this.axios.get("recomlist").then(res=>{
                 this.recomList=res.data.data[0];
                 this.recomFamily=res.data.data[1];          //将每本书的类型添加到对应的对象中
-                console.log(this.recomList)
                 for(var i=0;i<this.recomList.length;i++){
                     //给对象强行赋值一个属性story_famile 等于  图书对象中对应着图书详情中的family_id值，因为数组下标1开始，所以减1
                     this.recomList[i].story_family=this.recomFamily[this.recomList[i].family_id-1].fname;
@@ -295,7 +293,6 @@ export default {
             })
         },
         getBookShelf(){
-            console.log(this.sid)
             this.axios.get("getBookShelf",{
                 params:{sid:this.sid}
             }).then(res=>{
@@ -355,12 +352,9 @@ export default {
                     sid:this.sid
                 }
             }).then(res=>{
-                console.log(res.data.data)
                 this.arr=res.data.data[0][0];
                 this.fname=res.data.data[1][0]
-                console.log(this.fname.fname)
                 this.num=this.fname.fname=="玄幻"?1:this.fname.fname=="现言"?2:this.fname.fname=="悬疑"?3:this.fname.fname=="古言"?4:5
-                console.log(this.num)
             })
         },
         fdjMove(e){
@@ -389,55 +383,10 @@ export default {
             this.isNone=!this.isNone;
         },
         outLogin(){
-            this.axios.get("outlogin").then(result=>{
-                if(result.data.code==1){
-                    location.reload();
-                    this.$message("退出成功！");
-                    sessionStorage.removeItem("uname");
-                    sessionStorage.removeItem("nickName");
-                };
-            });
+            this.common.out.call(this)
         },
         toLogin(){          //用户登录时间
-            if(this.uname==""&&this.upwd==""){
-                this.loginMsg="请输入用户名和密码";
-                return;
-            }else if(this.uname==""){
-                this.loginMsg="请输入用户名";
-                return;
-            }else if(this.upwd==""){
-                this.loginMsg="请输入密码";
-                return;
-            }else if(this.authCode==""){
-                this.loginMsg="请输入验证码";
-                return;
-            };
-            if(!this.authTrue){
-                this.loginMsg="验证码输入错误";
-            }else{
-                this.axios.get("login",{
-                    params:{
-                        uname:this.uname,
-                        upwd:this.upwd,
-                    }
-                }).then(res=>{
-                    if(res.data.code==1){
-                        var uname=(res.data.data[0]).slice(-4);
-                        var nickName=res.data.data[1]
-                        sessionStorage.setItem("uname","xxmy"+uname);
-                        sessionStorage.setItem("nickName",nickName)
-                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{ 
-                            this.log=null;
-                            location.reload();
-                        }).catch(err=>{
-                            this.log=null;
-                            location.reload();
-                        });
-                    }else{
-                        this.$message.error("用户名或密码错误");
-                    }
-                });
-            }
+            this.common.userLogin.call(this);
         },
         changeImg(){        //变换验证码图片
             this.imgUrl++;
@@ -446,16 +395,15 @@ export default {
             };
         },
         login(){            //点击按钮显示登录框
-            this.log=1;     
+            this.logl();   
         },
         spanHid(){          //点击按钮隐藏登录框
-            this.log=null;   
+            this.spanHidden(); 
         },
     },
     mounted(){
         // var widthOne=this.$refs.divOne.offsetWidth;
         this.Pheight=this.$refs.pHeight.offsetHeight;
-        console.log(this.Pheight)
         this.pHet();
     },
     props:["sid"], 

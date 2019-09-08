@@ -42,6 +42,7 @@ export default {
             // bkNone:{display:"none"},
             act:false,
             // toShelf:this.$store.state.toShelf,
+            // log:this.$store.state.log,    //登录框隐藏切换
         }
     },
     created(){

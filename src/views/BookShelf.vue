@@ -5,16 +5,33 @@
         <div class="bookshelf-content">
             <div class="left-content">
                 <ul>
-                    <li><img src="image/home.png" alt=""><span>会员中心</span><span></span><span></span><span></span></li>
-                    <li :class="{active:isAct}" @click="oneActive"><img src="image/shouye1.png" alt=""><span>我的首页</span></li>
-                    <li :class="{active:!isAct}" @click="oneActive"><img src="image/set2.png" alt=""><span>个人设置</span></li>
-                    <li><img src="image/outlogin.png" alt=""><span>退出登录</span></li>
+                    <li>
+                        <img src="image/home.png" alt="">
+                        <span>会员中心</span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </li>
+                    <li :class="{active:isAct}" @click="oneActive">
+                        <img src="image/shouye1.png" alt="">
+                        <span>我的首页</span>
+                    </li>
+                    <li :class="{active:!isAct}" @click="oneActive">
+                        <img src="image/set2.png" alt="">
+                        <span>个人设置</span>
+                    </li>
+                    <li>
+                        <img src="image/outlogin.png" alt="">
+                        <span @click="outTo">退出登录</span>
+                    </li>
                     <li></li>
                 </ul>
             </div>
             <div class="right-content-one" :class="{disNone:!isAct}">
                 <div class="right-author">
-                    <div><img :src="`http://127.0.0.1:1994/${infoArr.Icon}`" alt=""></div>
+                    <div>
+                        <img :src="infoArr.avatar" alt="">
+                    </div>
                     <div>
                         <p>用户名：<span>{{infoArr.nickName==null?infoArr.uname:infoArr.nickName}}</span></p>
                     </div>
@@ -42,7 +59,7 @@
                 </table>
                 <div class="shlef-bottom">
                     <div> 
-                        <input type="checkbox" id="int"  v-model="checkAll" ><label for="int" style="margin-left:10px;"><span style="cursor:pointer">全选</span></label><span style="margin-left:10px;cursor:pointer">删除</span>
+                        <input type="checkbox" id="int"  v-model="checkAll" ><label for="int" style="margin-left:10px;"><span style="cursor:pointer">全选</span></label><span style="margin-left:10px;cursor:pointer" @click="delBooks">删除</span>
                         <select name="" id="" v-model="numAct">
                             <option value="3">每页显示3条</option>
                             <option value="4">每页显示4条</option>
@@ -67,8 +84,8 @@
             </div>
             <div class="right-content-one" :class="{disNone:isAct}">
                     <div class="userSet-top">
-                        <span :class="{activeS:twoAct}" @click="twoActive">基本设置</span>
-                        <span :class="{activeS:!twoAct}" @click="twoActive">修改密码</span>
+                        <span :class="{activeS:twoAct}" @click="twoActive" style="cursor:pointer">基本设置</span>
+                        <span :class="{activeS:!twoAct}" @click="twoActive" style="cursor:pointer">修改密码</span>
                     </div>
                     <div class="userSet-content" :class="{notActive:!twoAct}">
                         <div>
@@ -92,8 +109,22 @@
                         </div>
                         <div>
                             <span>头像：</span>
-                            <div><img :src="`http://127.0.0.1:1994/${infoArr.Icon}`" alt=""></div>
-                            <a href="javascript:;">修改</a>
+                            <!-- <div>
+                                <img :src="`http://127.0.0.1:1994/${infoArr.Icon}`" alt="">
+                            </div> -->
+                            <el-upload
+                                class="avatar-uploader"
+                                action="http://127.0.0.1:1994/avatar/"
+                                :show-file-list="false"
+                                :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload"
+                                :auto-upload=false 
+                                :on-change="imgChange"
+                                ::headers="headers">
+                                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                            <a href="javascript:;" @click="imgUpload">修改</a>
                         </div>
                         <div>
                             <span>绑定手机：</span>
@@ -127,6 +158,9 @@
 export default {
     data(){
         return {
+            headers:'Content-Type": "multipart/form-data"',
+            imageUrl:"",
+            file:'',
             isAct:true,
             twoAct:true,
             list:[],
@@ -134,7 +168,7 @@ export default {
             act:1,
             numAct:3,
             toCount:1,
-            infoArr:{},
+            infoArr:{avatar:"gy/dnyf.jpg"},
             screenwid:0,
             screenhei:0,
             setNick:true,
@@ -166,6 +200,75 @@ export default {
         this.getuserInfo();
     },
     methods:{
+        outTo(){
+          this.outLogin();  
+        },
+        imgChange(file){
+            this.file=file;
+            console.log(file)
+            this.imageUrl=URL.createObjectURL(file.raw)
+            // console.log(URL.createObjectURL(file.raw))
+        },
+        imgUpload(){
+            var obj = new FormData();
+            obj.append("imgFile",this.file)
+            console.log(obj);
+            this.axios.post("avatar",obj).then(res=>{
+                if(res.data.code==1){
+                    this.$message("修改成功");
+                    this.getuserInfo();
+                }
+            })
+        },
+         handleAvatarSuccess(res, file) {
+        //     console.log(file)
+        //     console.log(URL.createObjectURL(file.raw))
+        //     // this.imageUrl = URL.createObjectURL(file.raw);
+         },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        // },
+        delBooks(){
+            var sids="";
+            for(var item of this.list){
+                if(item.isCheck){
+                    sids+=item.sid+",";
+                }
+            }
+            console.log(sids.length)
+            if(sids.length==0){
+                this.$alert("请选择需要删除的书本","提示").then(act=>{
+                    return;
+                })
+            }else{
+            sids = sids.slice(0,sids.length-1);
+            this.$confirm("是否删除选中的书本？").then(act=>{
+                this.axios.get("delBooks",{
+                    params:{
+                        ids:sids,
+                    }
+                }).then(res=>{
+                    if(res.data.code==1){
+                        this.$message("删除成功");
+                        this.getBookShelf();
+
+                    }
+                });
+            }).catch(err=>{
+                return;
+            })
+            }
+        },
         delBook(e){      //删除书架书本
             var sid = e.target.dataset.sid;
             this.$confirm("此操作将删除图书，是否继续？").then(act=>{
@@ -231,6 +334,7 @@ export default {
         getuserInfo(){
             this.axios.get("getInfo").then(res=>{
                 this.infoArr=res.data.data[0];
+                this.imageUrl = this.infoArr.avatar
             })
         },
         toPage(){
@@ -271,22 +375,19 @@ export default {
                 }
             }).then(res=>{
                 // this.$store.state.list=res;
+                for(var item of res.data.data.data){
+                    item.isCheck=false;
+                }
                 this.list=res.data.data.data;
                 this.count=res.data.data.pCount;
-                for(var i=0;i<this.list.length;i++){
-                    this.list[i].isCheck=false;
-                }
+                // for(var i=0;i<this.list.length;i++){
+                //     this.list[i].isCheck=false;
+                // }
             })
         },
         login(){},
         outLogin(){
-            this.axios.get("outlogin").then(result=>{
-                if(result.data.code==1){
-                    location.reload();
-                    this.$message("退出成功！");
-                    sessionStorage.removeItem("uname");
-                };
-            });
+            this.common.out.call(this)
         },
         oneActive(){
             this.isAct=!this.isAct;
@@ -296,15 +397,39 @@ export default {
         }
     },
     mounted(){
-        this.screenwid=window.innerWidth;        //监听浏览器窗口变化
-        this.screenhei=document.body.clientHeight;
-        window.onresize=()=>{
-            console.log(window.innerWidth)
-        }
+        // this.screenwid=window.innerWidth;        //监听浏览器窗口变化
+        // this.screenhei=document.body.clientHeight;
+        // window.onresize=()=>{
+        //     console.log(window.innerWidth)
+        // }
     },
 }
 </script>
 <style scoped>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+
 body{
     background:#f7f7f7;
 }

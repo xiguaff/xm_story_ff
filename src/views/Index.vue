@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="col-list" :class="{divActive:idx==1}">
-                    7890    
+                   
                 </div>
             </div>
             <div class="col-3 p-2">
@@ -142,7 +142,20 @@
             </div>
         </div>
         <div class="col-8">
-
+            <el-carousel :interval="4000" type="card" height="200px">
+                <el-carousel-item>
+                    <img src="image/index/bot4-list.jpg" alt="" class="image">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="image/index/bot4-list2.jpg" alt="" class="image">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="image/index/bot4-list3.jpg" alt="" class="image">
+                </el-carousel-item>
+                <el-carousel-item>
+                    <img src="image/index/bot4-list4.jpg" alt="" class="image">
+                </el-carousel-item>
+            </el-carousel>
         </div>
         <div class="col-2">
             <div class="small_car">
@@ -531,6 +544,7 @@
 <script>
 import { setInterval, clearInterval, setTimeout } from 'timers';
 import Event from '../Even.js';
+import login from '@/assets/js/login.js'
 export default {
     data(){
         return {
@@ -551,7 +565,7 @@ export default {
             indexList:[],
             fname:[],
             topleft:[],
-            middleOne:[{imgUrl:""}],
+            middleOne:[{}],
             middleTwo:[{imgUrl:""}],
             middleThree:[{imgUrl:""}],
             middleFour:[{imgUrl:""}],
@@ -568,15 +582,13 @@ export default {
         }
     },
     watch:{
-        loginMsg(){
-            console.log(this.loginMsg)
-        },
         authCode(){
-            if(this.arr[this.imgUrl-1]==this.authCode){
-                this.authTrue=true;
-            }else{
-                this.authTrue=false;
-            }
+            // if(this.arr[this.imgUrl-1]==this.authCode){
+            //     this.authTrue=true;
+            // }else{
+            //     this.authTrue=false;
+            // }
+            this.code();
         },
     },
     created(){
@@ -589,7 +601,6 @@ export default {
         }
 
         // this.getName();
-        // this.sendValue();
     },
     methods:{
         getIndex(){
@@ -620,17 +631,12 @@ export default {
             })
         },
         searchBook(){
-            console.log(this.search)
+            // Event.$emit("send",this.search);
+            this.$store.state.search=this.search;
+            this.$router.push("/allbook");
         },
         outLogin(){
-            this.axios.get("outlogin").then(result=>{
-                if(result.data.code==1){
-                    location.reload();
-                    this.$message("退出成功！");
-                    sessionStorage.removeItem("uname");
-                    sessionStorage.removeItem("nickName");
-                };
-            });
+            this.common.out.call(this)
         },
         // getName(){          //页面刷新获取用户名，如果已登录则显示在导航栏
         //     this.axios.get("getname").then(result=>{
@@ -641,50 +647,8 @@ export default {
         //         }
         //     })
         // },
-        // sendValue(){
-        //    Event.$emit("send",this.imgUrl); 
-        // },
         toLogin(){          //用户登录
-            if(this.uname==""&&this.upwd==""){
-                this.loginMsg="请输入用户名和密码";
-                return;
-            }else if(this.uname==""){
-                this.loginMsg="请输入用户名";
-                return;
-            }else if(this.upwd==""){
-                this.loginMsg="请输入密码";
-                return;
-            }else if(this.authCode==""){
-                this.loginMsg="请输入验证码";
-                return;
-            };
-            if(!this.authTrue){
-                this.loginMsg="验证码输入错误";
-            }else{
-                this.axios.get("login",{
-                    params:{
-                        uname:this.uname,
-                        upwd:this.upwd,
-                    }
-                }).then(res=>{
-                    if(res.data.code==1){
-                        var uname=(res.data.data[0]).slice(-4);
-                        var nickName=res.data.data[1]
-                        console.log(uname,nickName)
-                        sessionStorage.setItem("uname","xxmy"+uname);
-                        sessionStorage.setItem("nickName",nickName)
-                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{ 
-                            this.log=null;
-                            location.reload();
-                        }).catch(err=>{
-                            this.log=null;
-                            location.reload();
-                        });
-                    }else{
-                        this.$message.error("用户名或密码错误");
-                    }
-                });
-            }
+            this.common.userLogin.call(this);
         },
         changeImg(){        //变换验证码图片
             this.imgUrl++;
@@ -693,12 +657,13 @@ export default {
             };
         },
         login(){            //点击按钮显示登录框
-            this.log=1;     
+            this.logl();
+            // this.$store.commit("setLog")
+            // console.log(this.log)
         },
         spanHid(){          //点击按钮隐藏登录框
             // window.addEventListener("click",this.spanHid)
-            this.log=null;   
-           
+            this.spanHidden(); 
         },
         timeMove(){         //绑定鼠标事件，进入停止定时器，离开启动定时器
             clearInterval(this.timer);

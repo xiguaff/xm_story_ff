@@ -26,4 +26,7 @@
 /* #nav a.router-link-exact-active {
   color: #42b983;
 } */
+.el-popup-parent--hidden{
+  padding:0 !important;
+}
 </style>

@@ -38,7 +38,7 @@ export default {
         return {
             widthout:0,
             imgNum:Math.ceil(Math.random()*6),    //记录验证码图片切换的张数
-            imgs:[1,18,11,33,34,1],    //验证码的答案
+            arr:this.$store.state.arr,    //验证码的答案
             auth:"",    //绑定验证码输入内容
             uname:"",   //保存用户输入的用户名
             upwd:"",    //保存用户输入的密码
@@ -78,6 +78,8 @@ export default {
             int6:false,     //保存正则验证的状态
             int5:false,
             showImg:1,     //记录显示密码状态图片的切换
+            int6:true,
+            int5:true,
         }
     },
     watch:{
@@ -103,7 +105,7 @@ export default {
              };
         },
         auth(){     //监听验证码框输入的值，改变验证码框的状态
-            if(this.auth==this.imgs[this.imgNum-1]){
+            if(this.auth==this.arr[this.imgNum-1]){
                 this.authIstrue=true;
             }else{
                 this.authIstrue=false;
@@ -156,13 +158,14 @@ export default {
             }
         },
         userReg(){                      //注册按钮 ，并判断用户输入是否正确，并进行相应提示
+         console.log(this.int6,this.int5)
             if(!this.unameIstrue){
                 this.$alert("号码格式错误","警告",{confirmButtonText: '确定'}).then(active=>{
                     return;
                 }).catch(err=>{
                     return;
                 })
-            }else if(!this.upwdIstrue){
+            }else if(!((this.upwd.length>=8)&&this.int5==false&&this.int6==false)){
                 this.$alert("密码格式错误","警告",{confirmButtonText: '确定'}).then(active=>{
                     return;
                 }).catch(err=>{

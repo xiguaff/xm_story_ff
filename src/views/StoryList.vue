@@ -79,7 +79,7 @@
             </div>
             <div class="i-3_content">
                 <div class="list-one">
-                    <img :src="`http://127.0.0.1:1994/${sixListOne.imgUrl}`" alt="">
+                    <img :src="`http://127.0.0.1:1994/${this.sixListOne.imgUrl}`" alt="">
                 </div>
                 <div class="icon_header">
                     <span class="num">NO.1</span>
@@ -200,11 +200,11 @@
 export default {
     data(){
         return {
-            log:null,    //登录框隐藏切换
+            log:this.$store.state.log,    //登录框隐藏切换
             uname:"",    //双向绑定姓名框的值
             upwd:"",     //双向绑定密码框的值
             authCode:"", //双向绑定验证框的值
-            arr:[1,18,11,33,34,1],    //验证码的答案
+            arr:this.$store.state.arr,    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
             authTrue:false,     //保存验证码输入框的状态
             oneList:[],
@@ -212,9 +212,9 @@ export default {
             threeList:[],
             fourList:[],
             fiveList:[],
-            fiveListOne:{},
+            fiveListOne:{imgUrl:"gy/dnyf.jpg"},     //先定义默认图片路径，防止报错undefined
             sixList:[],
-            sixListOne:{},
+            sixListOne:{imgUrl:"gy/dnyf.jpg"},      // //先定义默认图片路径，防止报错undefined
             Sfamily:"",
             loginMsg:"",
         }
@@ -255,55 +255,10 @@ export default {
             })
         },
         outLogin(){
-            this.axios.get("outlogin").then(result=>{
-                if(result.data.code==1){
-                    location.reload();
-                    this.$message("退出成功！");
-                    sessionStorage.removeItem("uname")
-                    sessionStorage.removeItem("nickName");
-                };
-            });
+            this.common.out.call(this)
         },
         toLogin(){          //验证验证码是否输入正确
-            if(this.uname==""&&this.upwd==""){
-                this.loginMsg="请输入用户名和密码";
-                return;
-            }else if(this.uname==""){
-                this.loginMsg="请输入用户名";
-                return;
-            }else if(this.upwd==""){
-                this.loginMsg="请输入密码";
-                return;
-            }else if(this.authCode==""){
-                this.loginMsg="请输入验证码";
-                return;
-            };
-            if(!this.authTrue){
-                this.loginMsg="验证码输入错误";
-            }else{
-                this.axios.get("login",{
-                    params:{
-                        uname:this.uname,
-                        upwd:this.upwd,
-                    }
-                }).then(res=>{
-                    if(res.data.code==1){
-                        var uname=(res.data.data[0]).slice(-4);
-                        var nickName=res.data.data[1]
-                        sessionStorage.setItem("uname","xxmy"+uname);
-                        sessionStorage.setItem("nickName",nickName)
-                        this.$alert("登录成功","提示",{confirmButtonText:'确定'}).then(active=>{
-                            this.log=null;
-                            location.reload();
-                        }).catch(err=>{
-                            location.reload();
-                             this.log=null;
-                        });
-                    }else{
-                        this.$message.error("用户名或密码错误");
-                    }
-                });
-            }
+            this.common.userLogin.call(this);
         },
         // getName(){
         //     this.axios.get("getname").then(result=>{
@@ -324,16 +279,12 @@ export default {
             this.log=1;     
         },
         spanHid(){          //点击按钮隐藏登录框
-            this.log=null;   
+            this.spanHidden(); 
         },
     },
     watch:{
         authCode(){
-            if(this.arr[this.imgUrl-1]==this.authCode){
-                this.authTrue=true;
-            }else{
-                this.authTrue=false;
-            };
+            this.code();
         },
         num(){
             this.getList();
@@ -350,6 +301,11 @@ export default {
             };
         }
     },
+    // computed:{
+    //     listPic(){
+    //         return `http://127.0.0.1:1994/${this.sixListOne.imgUrl}`
+    //     }
+    // },
     props:["num"],      //定义自定义属性，用用于接受其他页面传递的值，并用于页面绑定
     // components:{listOne,listTwo,listThree,listFour,listFive}
 }

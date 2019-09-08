@@ -33,7 +33,7 @@ export default {
     data(){
         return {    
             imgNum:Math.ceil(Math.random()*6),           //记录验证码图片切换的张数
-            arr:[1,18,11,33,34,1],    //验证码的答案
+            arr:this.$store.state.arr,   //验证码的答案
             authCode:"",        //双向绑定验证框的值
             uname:"",
             upwd:"",
@@ -43,11 +43,7 @@ export default {
     },
     watch:{
         authCode(){
-            if(this.arr[this.imgNum-1]==this.authCode){
-                this.authTrue=true;
-            }else{
-                this.authTrue=false;
-            };
+            this.code();
         },
     },
     methods:{

@@ -24,6 +24,19 @@ axios.defaults.withCredentials=true
 //将axios添加到vue原型对象中
 Vue.prototype.axios=axios
 Vue.prototype.qs=qs
+Vue.prototype.logl=function(){
+  this.log=1;
+}
+Vue.prototype.spanHidden=function(){
+  this.log=null;
+}
+Vue.prototype.code=function(){
+  if(this.arr[this.imgUrl-1]==this.authCode){
+    this.authTrue=true;
+  }else{
+    this.authTrue=false;
+  };
+}
 
 
 //引入导航栏组件

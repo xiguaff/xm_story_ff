@@ -19,6 +19,9 @@ import Login from './views/UserLogin.vue'
 
 //引入个人中心组建
 import userCenter from './views/BookShelf.vue'
+
+//引入全部列表组件
+import alllist from './views/allList.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -28,7 +31,8 @@ export default new Router({
     {path:'/detail/:sid',component:Details,props:true},     //为图书详情页配置路径
     {path:'/reg',component:reg},    //为用户注册页面配置路径
     {path:'/login',component:Login},    //为用户登录页面配置路径
-    {path:'/center',component:userCenter}     //为个人中心配置路由
+    {path:'/center',component:userCenter},     //为个人中心配置路由
+    {path:'/allbook',component:alllist}    //为全部列表配置路由
   ],
   scrollBehavior(to,from,savedPosition){
     return {

@@ -800,7 +800,7 @@ ul.ul-list{
     height:100%;
     background:#000;
     opacity:.4;
-    z-index: 99;
+    z-index: 998;
     position:fixed;
     top:0;
     display: none;
@@ -811,7 +811,7 @@ ul.ul-list{
     position:fixed;
     top:50%;left:50%;
     background:#fff;
-    z-index: 99;
+    z-index: 999;
     margin-top:-230px;
     margin-left:-230px;
     display:none;
@@ -921,4 +921,8 @@ ul.ul-list{
 
 .trans{
     transition:all 0.5s;
+}
+
+.image{
+    width:300px;
 }
