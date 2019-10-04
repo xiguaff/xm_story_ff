@@ -4,17 +4,17 @@
     <div class="header">
         <div class="container">
             <div class="header-top">
-                <img src="image/index/logo.png" alt="">
+                <img v-lazy="`image/index/logo.png`" alt="">
                 <div>
                     <input type="text" v-model="search" @keyup.13="searchBook"><span @click="searchBook"><i></i><i></i></span>
                 </div>  
                 <p>
-                    <a href=""><img src="image/index/header_author.jpg" alt="">我要当作家</a>
-                    <a href=""><img src="image/index/header_liwu.jpeg" alt="">作家福利</a>
+                    <a href=""><img v-lazy="`image/index/header_author.jpg`" alt="">我要当作家</a>
+                    <a href=""><img v-lazy="`image/index/header_liwu.jpeg`" alt="">作家福利</a>
                 </p>
             </div>
             <div>
-                <img src="image/index/header_img.jpg" alt="">
+                <img v-lazy="`image/index/header_img.jpg`" alt="">
             </div>
             <div class="header_bottom">
                 <ul>
@@ -132,28 +132,28 @@
         </div>
     </div>
     <div class="middle_img">
-        <img src="image/index/middle_img.jpg" alt="">
-        <img src="image/index/middle_img2.jpg" alt="">
+        <img v-lazy="`image/index/middle_img.jpg`" alt="">
+        <img v-lazy="`image/index/middle_img2.jpg`" alt="">
     </div>
     <div class="row">
         <div class="col-2">
             <div>
-                <img src="image/index/author_fuli.jpg" alt="">
+                <img v-lazy="`image/index/author_fuli.jpg`" alt="">
             </div>
         </div>
         <div class="col-8">
             <el-carousel :interval="4000" type="card" height="200px">
                 <el-carousel-item>
-                    <img src="image/index/bot4-list.jpg" alt="" class="image">
+                    <img v-lazy="`image/index/bot4-list.jpg`" alt="" class="image">
                 </el-carousel-item>
                 <el-carousel-item>
-                    <img src="image/index/bot4-list2.jpg" alt="" class="image">
+                    <img v-lazy="`image/index/bot4-list2.jpg`" alt="" class="image">
                 </el-carousel-item>
                 <el-carousel-item>
-                    <img src="image/index/bot4-list3.jpg" alt="" class="image">
+                    <img v-lazy="`image/index/bot4-list3.jpg`" alt="" class="image">
                 </el-carousel-item>
                 <el-carousel-item>
-                    <img src="image/index/bot4-list4.jpg" alt="" class="image">
+                    <img v-lazy="`image/index/bot4-list4.jpg`" alt="" class="image">
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -170,44 +170,44 @@
         <div class="hot_content">
             <div class="hot_content_1" @mouseover="timeMove" @mouseleave="timeLea">
                 <div id="div-imgs" :style="{'margin-left':`-${marleft}px`}">
-                    <div><a href="javascript:;"><img src="image/index/hot_tui1.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui1.jpg`" alt="">
                         <p>侯门嫡女之一品夫人</p>
                     </a><p>凌七七 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui2.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui2.jpg`" alt="">
                         <p>霍先生婚姻无效</p>
                     </a><p>铭希 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui3.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui3.jpg`" alt="">
                         <p>神君有个小师妹</p>
                     </a><p>公子无争 / 著</p>
                     </div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui4.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui4.jpg`" alt="">
                         <p>天命凰徒</p>
                     </a><p>木林铃 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui5.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui5.jpg`" alt="">
                         <p>星际未来之寻妻指南</p>
                     </a><p>淡粥 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui6.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui6.jpg`" alt="">
                         <p>主母Boss又精分了</p>
                     </a><p>澄夏 / 著</p></div>
                 </div>
                 <div id="div-imgs1">
-                    <div><a href="javascript:;"><img src="image/index/hot_tui1.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui1.jpg`" alt="">
                         <p>侯门嫡女之一品夫人</p>
                     </a><p>凌七七 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui2.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui2.jpg`" alt="">
                         <p>霍先生婚姻无效</p>
                     </a><p>铭希 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui3.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui3.jpg`" alt="">
                         <p>神君有个小师妹</p>
                     </a><p>公子无争 / 著</p>
                     </div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui4.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui4.jpg`" alt="">
                         <p>天命凰徒</p>
                     </a><p>木林铃 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui5.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui5.jpg`" alt="">
                         <p>星际未来之寻妻指南</p>
                     </a><p>淡粥 / 著</p></div>
-                    <div><a href="javascript:;"><img src="image/index/hot_tui6.jpg" alt="">
+                    <div><a href="javascript:;"><img v-lazy="`image/index/hot_tui6.jpg`" alt="">
                         <p>主母Boss又精分了</p>
                     </a><p>澄夏 / 著</p></div>
                 </div>
@@ -215,7 +215,7 @@
         </div>
     </div>
     <div class="gg_img">
-        <img src="image/index/gg.jpg" alt="">
+        <img v-lazy="`image/index/gg.jpg`" alt="">
     </div>
     <div class="container">
         <div class="icon">
@@ -225,7 +225,7 @@
                 </div>
                 <div class="i-3_content">
                     <div class="list-one">
-                        <img :src="`http://127.0.0.1:1994/${middleOne[0].imgUrl}`" alt="">
+                        <img v-lazy="`${url}${middleOne[0].imgUrl}`" alt="">
                     </div>
                     <div class="icon_header">
                         <span class="num">NO.1</span>
@@ -250,7 +250,7 @@
                 <div class="nav_content" :class="{navActive:dh==0}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img :src="`http://127.0.0.1:1994/${middleTwo[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${middleTwo[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
@@ -270,7 +270,7 @@
                 <div class="nav_content" :class="{navActive:dh==1}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img :src="`http://127.0.0.1:1994/${middleThree[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${middleThree[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
@@ -294,7 +294,7 @@
                 </div>
                 <div class="i-3_content">
                     <div class="list-one">
-                        <img :src="`http://127.0.0.1:1994/${middleFour[0].imgUrl}`" alt="">
+                        <img v-lazy="`${url}${middleFour[0].imgUrl}`" alt="">
                     </div>
                     <div class="icon_header">
                         <span class="num">NO.1</span>
@@ -317,7 +317,7 @@
                 </div>
                 <div class="i-3_content">
                     <div class="list-one">
-                        <img :src="`http://127.0.0.1:1994/${middleFive[0].imgUrl}`" alt="">
+                        <img v-lazy="`${url}${middleFive[0].imgUrl}`" alt="">
                     </div>
                     <div class="icon_header">
                         <span class="num">NO.1</span>
@@ -336,8 +336,8 @@
             </div>
         </div>
         <div>
-            <img src="image/index/58_img5.jpg" alt="">
-            <img src="image/index/61_img5.jpg" alt="">
+            <img v-lazy="`image/index/58_img5.jpg`" alt="">
+            <img v-lazy="`image/index/61_img5.jpg`" alt="">
         </div>
         <div class="bottom-list">
             <div class="bot-2">
@@ -349,7 +349,7 @@
                 <div class="bottom_content" :class="{bottActive:bott==0}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img :src="`http://127.0.0.1:1994/${middleSix[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${middleSix[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
@@ -369,7 +369,7 @@
                 <div class="bottom_content" :class="{bottActive:bott==1}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img :src="`http://127.0.0.1:1994/${middleSeven[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${middleSeven[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
@@ -389,7 +389,7 @@
                 <div class="bottom_content" :class="{bottActive:bott==2}">
                     <div class="i-3_content">
                         <div class="list-one">
-                            <img :src="`http://127.0.0.1:1994/${middleEight[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${middleEight[0].imgUrl}`" alt="">
                         </div>
                         <div class="icon_header">
                             <span class="num">NO.1</span>
@@ -412,7 +412,7 @@
                         <h3>大神访谈</h3>
                     </div>
                     <div>
-                        <img src="image/index/bot-say.jpg" alt="">
+                        <img v-lazy="`image/index/bot-say.jpg`" alt="">
                     </div>
                     <p>心有繁花，笔尖下的大千世界——</p>
                 </div>
@@ -422,7 +422,7 @@
                         <h3>作品专题</h3>
                     </div>
                     <div>
-                        <img src="image/index/zhuanti.jpg" alt="">
+                        <img v-lazy="`image/index/zhuanti.jpg`" alt="">
                     </div>
                     <p>谈情说案 揭秘真相</p>
                     <p>你是步步沦陷，还是破除迷雾……</p>
@@ -436,7 +436,7 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img :src="`http://127.0.0.1:1994/${bottomOne[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${bottomOne[0].imgUrl}`" alt="">
                             <p><router-link :to="`/detail/${bottomOne[0].sid}`" v-text="bottomOne[0].bname"></router-link></p>
                             <p>{{bottomOne[0].author}} / 著</p>
                         </div>
@@ -452,7 +452,7 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img :src="`http://127.0.0.1:1994/${bottomTwo[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${bottomTwo[0].imgUrl}`" alt="">
                             <p><router-link :to="`/detail/${bottomTwo[0].sid}`" v-text="bottomOne[0].bname"></router-link></p>
                             <p>{{bottomTwo[0].author}} / 著</p>
                         </div>
@@ -468,7 +468,7 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img :src="`http://127.0.0.1:1994/${bottomThree[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${bottomThree[0].imgUrl}`" alt="">
                             <p><router-link :to="`/detail/${bottomThree[0].sid}`" v-text="bottomThree[0].bname"></router-link></p>
                             <p>{{bottomThree[0].author}} / 著</p>
                         </div>
@@ -488,7 +488,7 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img :src="`http://127.0.0.1:1994/${bottomFour[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${bottomFour[0].imgUrl}`" alt="">
                             <p><router-link :to="`/detail/${bottomFour[0].sid}`" v-text="bottomFour[0].bname"></router-link></p>
                             <p>{{bottomFour[0].author}} / 著</p>
                         </div>
@@ -504,7 +504,7 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img :src="`http://127.0.0.1:1994/${bottomFive[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${bottomFive[0].imgUrl}`" alt="">
                             <p><router-link :to="`/detail/${bottomFive[0].sid}`" v-text="bottomFive[0].bname"></router-link></p>
                             <p>{{bottomFive[0].author}} / 著</p>
                         </div>
@@ -520,7 +520,7 @@
                     </div>
                     <div class="bot4-list">
                         <div class="left_list">
-                            <img :src="`http://127.0.0.1:1994/${bottomSix[0].imgUrl}`" alt="">
+                            <img v-lazy="`${url}${bottomSix[0].imgUrl}`" alt="">
                             <p><router-link :to="`/detail/${bottomSix[0].sid}`" v-text="bottomSix[0].bname"></router-link></p>
                             <p>{{bottomSix[0].author}} / 著</p>
                         </div>
@@ -534,7 +534,7 @@
             </div>
         </div>
         <div class="mt">
-            <img src="image/index/bottom_img.jpg" alt="">
+            <img v-lazy="`image/index/bottom_img.jpg`" alt="">
         </div>
     </div>
     <my-footer></my-footer>
@@ -548,6 +548,7 @@ import login from '@/assets/js/login.js'
 export default {
     data(){
         return {
+            url:this.$store.state.url,
             idx:0,       //定义变量保存元素初始样式
             dh:0,        //定义变量保存元素初始样式
             bott:0,      //定义变量保存元素初始样式
@@ -565,20 +566,20 @@ export default {
             indexList:[],
             fname:[],
             topleft:[],
-            middleOne:[{}],
-            middleTwo:[{imgUrl:""}],
-            middleThree:[{imgUrl:""}],
-            middleFour:[{imgUrl:""}],
-            middleFive:[{imgUrl:""}],
-            middleSix:[{imgUrl:""}],
-            middleSeven:[{imgUrl:""}],
-            middleEight:[{imgUrl:""}],
-            bottomOne:[{imgUrl:""}],
-            bottomTwo:[{imgUrl:""}],
-            bottomThree:[{imgUrl:""}],
-            bottomFour:[{imgUrl:""}],
-            bottomFive:[{imgUrl:""}],
-            bottomSix:[{imgUrl:""}],
+            middleOne:[{imgUrl:"default.jpg"}],
+            middleTwo:[{imgUrl:"default.jpg"}],
+            middleThree:[{imgUrl:"default.jpg"}],
+            middleFour:[{imgUrl:"default.jpg"}],
+            middleFive:[{imgUrl:"default.jpg"}],
+            middleSix:[{imgUrl:"default.jpg"}],
+            middleSeven:[{imgUrl:"default.jpg"}],
+            middleEight:[{imgUrl:"default.jpg"}],
+            bottomOne:[{imgUrl:"default.jpg"}],
+            bottomTwo:[{imgUrl:"default.jpg"}],
+            bottomThree:[{imgUrl:"default.jpg"}],
+            bottomFour:[{imgUrl:"default.jpg"}],
+            bottomFive:[{imgUrl:"default.jpg"}],
+            bottomSix:[{imgUrl:"default.jpg"}],
         }
     },
     watch:{
@@ -604,7 +605,7 @@ export default {
     },
     methods:{
         getIndex(){
-            this.axios.get("/getIndex").then(res=>{
+            this.axios.get("getIndex").then(res=>{
                 this.indexList=res.data.data[0];
                 this.fname=res.data.data[1];
                 for(var i=0;i<this.indexList.length;i++){
@@ -625,7 +626,6 @@ export default {
                 this.bottomFour=this.indexList.slice(110,119);
                 this.bottomFive=this.indexList.slice(116,129);
                 this.bottomSix=this.indexList.slice(85,94);
-                console.log(this.bottomOne)
             }).catch(err=>{
                 console.log(err);
             })
@@ -667,6 +667,7 @@ export default {
         },
         timeMove(){         //绑定鼠标事件，进入停止定时器，离开启动定时器
             clearInterval(this.timer);
+            this.timer = null;
         },
         timeLea(){
             this.timer=setInterval(()=>{
@@ -770,6 +771,11 @@ export default {
                 },600);
             }
         });
+    },
+    destroyed(){
+        clearInterval(this.timer);
+        console.log("定时器被清除了")
+        this.timer = null
     },
     components:{}
 }

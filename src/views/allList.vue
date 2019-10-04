@@ -18,7 +18,7 @@
             <div class="allBook-Content">
                 <div class="contentList" v-for="(p,i) of allList" :key="i">
                     <div>
-                        <router-link :to="`/detail/${p.sid}`"><img :src="`${url}${p.imgUrl}`" alt=""></router-link>
+                        <router-link :to="`/detail/${p.sid}`"><img v-lazy="`${url}${p.imgUrl}`" alt=""></router-link>
                     </div>
                     <div>
                         <div v-text="p.bname"></div>
@@ -42,9 +42,9 @@
             <div class="intr-all">
                 <button @click="toAct(-1)" :disabled="leftBtn" v-show="isHidden">上一页</button>
                 <ul>
-                    <!-- <li v-show="">...</li> -->
-                    <li :class="{active:allAct==i}" v-for="i in count" :key="i" @click="changeAct(i)">{{i}}</li>
-                    <!-- <li>...</li> -->
+                    <li v-show="liHidden>7">...</li>
+                    <li :class="{active:allAct==i}" v-for="i in count" :key="i" @click="changeAct(i)" v-show="liHidden-7<i&&i<liHidden" >{{i}}</li>
+                    <li>...</li>
                 </ul>
                 <button @click="toAct(+1)" :disabled="rightBtn" v-show="isHidden">下一页</button>
             </div>
@@ -59,7 +59,7 @@ import { setTimeout } from 'timers';
 export default {
     data(){
         return {
-            url:"http://127.0.0.1:1994/",
+            url:this.$store.state.url,
             arr:this.$store.state.arr,    //验证码的答案
             log:this.$store.state.log,    //登录框隐藏切换
             imgUrl:Math.ceil(Math.random()*6),       //记录验证码图片切换的张数
@@ -73,7 +73,8 @@ export default {
             count:1,
             allAct:1,
             isHidden:true,
-            // liHidden:7,
+            liHidden:7,
+            isClick:false,
             // isClick:true,
 
         }
@@ -102,7 +103,12 @@ export default {
     },
     methods:{
         toAct(i){
-            this.allAct+=i;
+            if(this.isClick){
+                this.allAct+=i;
+                this.liHidden+=i;
+                this.isClick=false
+                console.log(this.liHidden)
+            }
         },
         changeAct(i){
             this.allAct=i;
@@ -116,6 +122,7 @@ export default {
             }).then(res=>{
                 this.allList=res.data.data.data;
                 this.count=res.data.data.count;
+                this.isClick=true;
                 if(this.count==0){
                     this.isHidden=false;
                 }else{

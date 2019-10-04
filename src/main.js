@@ -2,7 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import VueLazyLoad from 'vue-lazyload'
 
+
+Vue.use(VueLazyLoad)
 //引入公共js文件
 import common from './common.js'
 //将js文件加入到vue原型链中

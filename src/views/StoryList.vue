@@ -33,7 +33,7 @@
             <div class="list-top-left">
                 <div class="list-top-content" v-for="(p,i) of oneList" :key="i">
                     <div>
-                        <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
+                        <img :src="`${url}${p.imgUrl}`" alt="">
                     </div>
                     <div>
                         <p v-text="p.bname"></p>
@@ -79,7 +79,7 @@
             </div>
             <div class="i-3_content">
                 <div class="list-one">
-                    <img :src="`http://127.0.0.1:1994/${this.sixListOne.imgUrl}`" alt="">
+                    <img :src="`${url}${this.sixListOne.imgUrl}`" alt="">
                 </div>
                 <div class="icon_header">
                     <span class="num">NO.1</span>
@@ -102,7 +102,7 @@
         <div class="list-middle">
         <div class="list-middle-content" v-for="(p,i) of twoList" :key="i">
             <div>
-                <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
+                <img :src="`${url}${p.imgUrl}`" alt="">
             </div>
             <div>
                 <p><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></p>
@@ -124,7 +124,7 @@
             </div>
             <div class="i-3_content">
                 <div class="list-one">
-                    <img :src="`http://127.0.0.1:1994/${fiveListOne.imgUrl}`" alt="">
+                    <img :src="`${url}${fiveListOne.imgUrl}`" alt="">
                 </div>
                 <div class="icon_header">
                     <span class="num">NO.1</span>
@@ -147,7 +147,7 @@
         <div class="list-middle">
                 <div class="list-middle-content" v-for="(p,i) of threeList" :key="i">
                     <div>
-                        <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
+                        <img :src="`${url}${p.imgUrl}`" alt="">
                     </div>
                     <div>
                         <p><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></p>
@@ -168,7 +168,7 @@
         </div>
         <div class="list-bottom">
             <div class="list-bottom-content" v-for="(p,i) of fourList" :key="i">
-                <div><img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt=""></div>
+                <div><img :src="`${url}${p.imgUrl}`" alt=""></div>
                 <div>
                     <p><router-link :to="`/detail/${p.sid}`" v-text="p.bname"></router-link></p>
                     <p style="color:#888;"><span v-text="p.author"></span> / 著</p>
@@ -200,6 +200,7 @@
 export default {
     data(){
         return {
+            url:this.$store.state.url,
             log:this.$store.state.log,    //登录框隐藏切换
             uname:"",    //双向绑定姓名框的值
             upwd:"",     //双向绑定密码框的值

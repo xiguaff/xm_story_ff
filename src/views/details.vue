@@ -20,11 +20,11 @@
         </div>
         <div class="detalis-top">
             <div @mouseover="fdjDiv" @mouseout="fdjDiv" @mousemove="fdjMove" class="divStyle" ref="divOne">
-                <img :src="`http://127.0.0.1:1994/${arr.imgUrl}`" alt="">
+                <img :src="`${url}${arr.imgUrl}`" alt="">
             </div>
             <div class="fdj-sp" :class="{fdjStyle:isNone}" :style="spanStyle" ref="divTwo"></div>
             <div class="fdj-top" :class="{fdjStyle:isNone}">
-                <img :src="`http://127.0.0.1:1994/${arr.imgUrl}`" alt="" :style="imgStyle">
+                <img :src="`${url}${arr.imgUrl}`" alt="" :style="imgStyle">
             </div>
             <div class="right-detail">
                 <div class="title">
@@ -157,7 +157,7 @@
             <div class="detail-bottom-content">
                 <div class="bottom-content" v-for="(p,i) of recomListFour" :key="i">
                     <div @click="toDetail(p.sid)">
-                        <img :src="`http://127.0.0.1:1994/${p.imgUrl}`" alt="">
+                        <img :src="`${url}${p.imgUrl}`" alt="">
                     </div>
                     <div>
                         <p v-text="p.bname" @click="toDetail(p.sid)" style="cursor:pointer"></p>
@@ -189,6 +189,7 @@ import { setTimeout } from 'timers';
 export default {
     data(){
         return {
+            url:this.$store.state.url,
             authCode:"", //双向绑定验证框的值
             arr1:this.$store.state.arr,    //验证码的答案
             imgUrl:1,       //记录验证码图片切换的张数
@@ -209,7 +210,7 @@ export default {
             heightOne:0,
             divWidth:0,     //保存小滑块元素的宽高
             divHeight:0,
-            arr:{imgUrl:"gy/dnyf.jpg"},
+            arr:{imgUrl:"default.jpg"},
             fname:{},
             loginMsg:"",
             authTrue:false,     //保存验证码输入框的状态
